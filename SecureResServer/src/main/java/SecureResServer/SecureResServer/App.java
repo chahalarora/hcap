@@ -223,7 +223,7 @@ public class App
 	
     public static void main(String[] args)
     {
-    	String propFileLocation = ".../ResServer.properties";
+    	String propFileLocation = "/home/grads/lakshya.tandon/Desktop/MultiResourceServer-23Oct2017/PropertiesFiles/ResServer.properties";
     	
     	int machNumber = 0;
     	int exNumber = 0;
