@@ -14,7 +14,7 @@ public class App
     
     public void demoClient()
     {
-    	String propFileLocation = ".../Client.properties";
+    	String propFileLocation = "/home/grads/lakshya.tandon/Desktop/MultiResourceServer-23Oct2017/PropertiesFiles/Client.properties";
         ClientBuilder client = new ClientBuilder(propFileLocation);
         
         HashMap<String, Object> capability = null;
