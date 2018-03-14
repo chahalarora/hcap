@@ -79,7 +79,7 @@ public class App
 	
     public static void main(String[] args )
     {
-        String propFileLocation  = ".../AuthServer.properties";
+        String propFileLocation  = "/home/grads/lakshya.tandon/Desktop/MultiResourceServer-23Oct2017/PropertiesFiles/AuthServer.properties";
         
         //read experiment number and machine number
         new App().readFile(propFileLocation);
