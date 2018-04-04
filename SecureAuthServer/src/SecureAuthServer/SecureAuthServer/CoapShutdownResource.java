@@ -1,9 +1,11 @@
 package SecureAuthServer.SecureAuthServer;
 
+import java.security.Principal;
 import java.util.HashMap;
 
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;
+import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
 public class CoapShutdownResource {
@@ -28,9 +30,18 @@ public class CoapShutdownResource {
 			@Override
 			public void handlePOST(CoapExchange exchange)
 			{
-				App.server.stopHCAPServer(App.serverObj);
-				System.out.println("HCAP Resource Server stopped.");
+				Request req = exchange.advanced().getRequest();
+				Principal pr = req.getSenderIdentity();
+				String accessorName = pr.getName();
+				
+				acHcapRes res = new acHcapRes(HCAPAuthorizationServer.AuthFileLoc);
+				if(res.checkAuthorization(accessorName))
+				{
+					App.server.stopHCAPServer(App.serverObj);
+					System.out.println("HCAP Resource Server stopped.");	
+				}
 			}
+			
 		};
 		return shutdownResource;
 	}

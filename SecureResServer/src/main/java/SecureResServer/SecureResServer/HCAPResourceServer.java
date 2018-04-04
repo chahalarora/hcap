@@ -46,6 +46,7 @@ public class HCAPResourceServer
 	private static int port;
 	//private static int capProp;
 	public static boolean isCBOR = true;
+	public static String AuthFileLoc;
 	
 	private HashMap<Pair, Long> permReferenceMap;
 	private MessageDeliverer extendedDeliverer = null;
@@ -131,6 +132,7 @@ public class HCAPResourceServer
 		    experimentNumber = Integer.parseInt(prop.getProperty("experimentNumber"));
 		    machineNumber = Integer.parseInt(prop.getProperty("machineNumber"));
 		    serverSharedKey = prop.getProperty("sharedSecret");
+		    AuthFileLoc = prop.getProperty("AuthFile");
 		    
 		    //add the resource to authorization server address, The resource for flush at authorization server is flush
 		    authServerAddress = "coaps://" + prop.getProperty("authserveraddress"); 
@@ -165,7 +167,7 @@ public class HCAPResourceServer
 		    hardGCThreshold = Long.parseLong(prop.getProperty("hardGCThreshold"));
 		    isCBOR = Boolean.parseBoolean(prop.getProperty("isCBOR"));		    
 		    serverSharedKey = prop.getProperty("sharedSecret");
-
+		    AuthFileLoc = prop.getProperty("AuthFile");
 		    
 		    //add the resource to authserver address, The resource for flush at authorization server is flush
 		    authServerAddress = "coaps://" + prop.getProperty("authserveraddress"); 

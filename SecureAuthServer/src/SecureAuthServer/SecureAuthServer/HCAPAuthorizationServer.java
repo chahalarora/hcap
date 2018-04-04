@@ -35,8 +35,8 @@ public class HCAPAuthorizationServer
 	private static String keyStorePassword;
 	private static int port;
 	public static boolean isCBOR = true;
-	//public static String serverSharedKey = "myKey";
 	public static String serverSharedKey;
+	public static String AuthFileLoc;
 	
 	//public static boolean isPaused = false;
 	public static HashMap<Long, Boolean> updateLockMap = new HashMap<Long, Boolean>(); 
@@ -89,6 +89,7 @@ public class HCAPAuthorizationServer
 		    //capProp = Integer.parseInt(prop.getProperty("capProp"));
 		    isCBOR = Boolean.parseBoolean(prop.getProperty("isCBOR"));
 		    serverSharedKey = prop.getProperty("sharedSecret");
+		    AuthFileLoc = prop.getProperty("AuthFile");
 		    
 		    SAMap = new HashMap<String, ArrayList<Object>>();
 		    
