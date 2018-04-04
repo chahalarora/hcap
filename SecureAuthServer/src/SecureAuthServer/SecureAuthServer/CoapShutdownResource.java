@@ -20,6 +20,7 @@ public class CoapShutdownResource {
 	public static CoapResource createResource()
 	{
 		CoapResource shutdownResource  = new CoapResource("shutdown")
+	
 		{
 			@Override
 			public void handleGET(CoapExchange exchange)

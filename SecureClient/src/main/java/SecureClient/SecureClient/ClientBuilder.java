@@ -275,8 +275,9 @@ public class ClientBuilder
 	 * @param resource
 	 * @return
 	 */
-	public boolean sendUpdateRequestAndGetCapability(HashMap<String, Object> inTicket, String resource)
+	public boolean sendUpdateRequestAndGetCapability(HashMap<String, Object> inTicket)
 	{
+		String resource = "update";
 		byte[] updatePayload = encodePayload(createRequestPayload(inTicket, null));
 		
 		Request req = new Request(Code.POST);

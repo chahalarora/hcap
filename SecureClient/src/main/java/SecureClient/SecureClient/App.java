@@ -20,6 +20,7 @@ public class App
         HashMap<String, Object> capability = null;
         HashMap<String, Object> oldCapability = null;
         
+        
         if(client.getCapability())
         {
         	capability = client.getTicket();
@@ -46,9 +47,10 @@ public class App
         	System.out.println(capability.toString());
         }
         
-        //extra part
+        //get a new capability after state update request is issued
         /*
-        if(client.sendUpdateRequestAndGetCapability(capability, "update"))
+        HashMap<String, Object> updateRequest = capability;
+        if(client.sendUpdateRequestAndGetCapability(updateRequest))
         {
         	capability = client.getTicket();
         	
