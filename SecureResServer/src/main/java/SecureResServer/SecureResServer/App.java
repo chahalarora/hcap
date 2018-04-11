@@ -20,11 +20,11 @@ public class App {
     	System.out.println("Demo resources initiated for resource server.");
     	//Construct resources for test machine
     	ConstructResourcesTestMachine resTest = new ConstructResourcesTestMachine();
-    	resT =  resTest.construct();
+    	resT =  resTest.construct(20);
     	
     	
     	//to be taken as user input
-    	inPermMap = new App_Ex().createMap(12);    
+    	inPermMap = new App().createMap(12);    
     	
     	
     	server = new HCAPResourceServer(propFileLocation, inPermMap);
@@ -54,5 +54,20 @@ public class App {
 		in.close();
 		*/
     }
+	
+	public HashMap<Pair, Long> createMap(int machineNumber)
+	{
+		HashMap<Pair, Long> inPermMap = new HashMap<Pair, Long>();
+		
+		for(int i = 1; i <= machineNumber; i++)
+		{
+			String res = "demoResource";
+			
+			Pair p = new Pair("POST", res+i);
+			
+			inPermMap.put(p, (long) i);
+		}
+		return inPermMap;
+	}
 
 }

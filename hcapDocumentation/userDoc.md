@@ -43,7 +43,23 @@ Once all inputs are given to the authorization server object, **startHCAPServer*
 
 
 ### Resource Server
-> TODO
+Resource server needs some user inputs to start. These inputs are to be provided before calling the start method on the server object.
+The inputs are listed below.
+
+#### Properties file location
+The resource server reads parameters from the resource server's properties file. For more information regarding properties file parameters refer developer documentation.
+
+After setting the parameteres in properties file, the location of the file goes as an input to the constructor of HCAPResourceServer class.
+
+#### Resources to be hosted at the server
+The resource server next needs to know the resources which it should be hosting. These resources go as a parameter to addResourcesToServer method defined by HCAPResourceServer class. This method accepts an array of object of CoapResource class. The user needs to create this array before passing it to addResourcesToServer method. An example to construct resources has been provided in ConstructResourcesTestMachine class.
+
+#### A map which maps code-resource pair to permission
+
+
+#### Starting the resource server
+Once all inputs are given to the resource server object, **startHCAPServer** method can be used to start the server. This method does not accept any parameters but returns a server object which can be used to shut down the server. **stopHCAPServer** can be used to shut down the server by passing the returned server object as a parameter.
+
 
 ## Setting Up the Client
 The client machine is sends requests to both the servers. It gets capabilties from the authorization server. And using those capabilities, it tries to access resources hosted by the resource servers.

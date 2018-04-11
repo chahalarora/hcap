@@ -289,7 +289,7 @@ public class ValidationTestDifferentRSAlgo2
     		System.out.println("Demo resources initiated for resource server.");
     		//Construct resources for test machine
     		ConstructResourcesTestMachine resTest = new ConstructResourcesTestMachine();
-        	resT =  resTest.construct();
+        	resT =  resTest.construct(20);
     	}
     	else if(exNumber == 1)
     	{
@@ -310,7 +310,7 @@ public class ValidationTestDifferentRSAlgo2
     		//just define some demo resources in order for resource server to not produce any errors
     		//Construct resources for test machine
     		ConstructResourcesTestMachine resTest = new ConstructResourcesTestMachine();
-        	resT =  resTest.construct();
+        	resT =  resTest.construct(20);
     	}
     	else if(exNumber == 4)
     	{
