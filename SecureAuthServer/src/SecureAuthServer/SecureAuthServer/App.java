@@ -29,7 +29,6 @@ public class App {
         server.addResourceServer("127.0.0.1:8080", "myKey");
         server.addToStateRSMap("St1", "127.0.0.1:8080");
         
-       
         serverObj = server.startHCAPServer();
         
         //testCaseCodeNoSession();

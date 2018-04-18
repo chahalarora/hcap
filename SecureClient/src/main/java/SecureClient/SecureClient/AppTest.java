@@ -32,7 +32,13 @@ public class AppTest
     	
         ClientBuilder client = new ClientBuilder(propFileLocation);
         
+
         HashMap<String, Object> capability = null;
+        
+        if(client.getCapability())
+        {
+        	capability = client.getTicket();
+        }
         
         while(!permissions.isEmpty())
         {
