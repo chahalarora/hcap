@@ -16,7 +16,7 @@ import org.jdom2.input.SAXBuilder;
  */
 public class AppTest 
 {
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
     	new AppTest().demoClient();
     }
@@ -49,9 +49,27 @@ public class AppTest
             {
             	capability = client.getTicket();
             	
-            	System.out.println(capability.toString());
+            	if(capability.containsKey("messageText"))
+            	{
+            		if(capability.get("messageText").equals("REQUEST CANCELLED"))
+            		{
+            			String failure = "Failed Test: " + xmlFileLocation + " when requesting access to: " + requestedResource;
+            			System.out.println(failure);
+            			logToFile(failure);
+            			return;
+            		}
+            	}
+            	//System.out.println(capability.toString());
             }
         }
+    	String success = "Successfully executed test: " + xmlFileLocation;
+		System.out.println(success);
+    	logToFile(success);
+    }
+    
+    private void logToFile(String s)
+    {
+    	//log string a file
     }
     
 
