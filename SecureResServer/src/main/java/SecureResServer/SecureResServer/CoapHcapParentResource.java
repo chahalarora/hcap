@@ -41,9 +41,13 @@ public class CoapHcapParentResource
 		
 		CoapResource pingRes = HCAPPingResource.createResource();
 		CoapResource validateResource = CoapValidateResource.createResource();
+		CoapResource shutdown = CoapShutdownResource.createResource();
+		CoapResource checkStatus = CoapCheckStatusResource.createResource();
 		
 		parentResource.add(validateResource);
 		parentResource.add(pingRes);
+		parentResource.add(shutdown);
+		parentResource.add(checkStatus);
 		
 		return parentResource;
 	}

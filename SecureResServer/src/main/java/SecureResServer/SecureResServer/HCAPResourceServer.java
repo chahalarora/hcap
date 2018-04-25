@@ -39,7 +39,6 @@ public class HCAPResourceServer
 	}
 	
 	private CoapServer server;
-	
 	private static String trustStoreLocation;
 	private static String trustStorePassword;
 	private static String keyStoreLocation;
@@ -47,12 +46,14 @@ public class HCAPResourceServer
 	private static int port;
 	//private static int capProp;
 	public static boolean isCBOR = true;
+	public static String AuthFileLoc;
 	
 	private HashMap<Pair, Long> permReferenceMap;
 	private MessageDeliverer extendedDeliverer = null;
 	
 	public static boolean isPaused = false;
-	public static String serverSharedKey = "myKey1";
+	//public static String serverSharedKey = "myKey1";
+	public static String serverSharedKey;
 	
 	public static HashMap<Long, ExceptionList> lisMap = new HashMap<Long, ExceptionList>();
 	public static HashMap<Long, Boolean> lisMapLock  = new HashMap<Long, Boolean>();
@@ -130,7 +131,8 @@ public class HCAPResourceServer
 		    isCBOR = Boolean.parseBoolean(prop.getProperty("isCBOR"));
 		    experimentNumber = Integer.parseInt(prop.getProperty("experimentNumber"));
 		    machineNumber = Integer.parseInt(prop.getProperty("machineNumber"));
-		    
+		    serverSharedKey = prop.getProperty("sharedSecret");
+		    AuthFileLoc = prop.getProperty("AuthFile");
 		    
 		    //add the resource to authorization server address, The resource for flush at authorization server is flush
 		    authServerAddress = "coaps://" + prop.getProperty("authserveraddress"); 
@@ -163,7 +165,9 @@ public class HCAPResourceServer
 		    port = Integer.parseInt(prop.getProperty("port"));
 		    softGCCounter = Long.parseLong(prop.getProperty("updateRequestCounter"));
 		    hardGCThreshold = Long.parseLong(prop.getProperty("hardGCThreshold"));
-		    isCBOR = Boolean.parseBoolean(prop.getProperty("isCBOR"));
+		    isCBOR = Boolean.parseBoolean(prop.getProperty("isCBOR"));		    
+		    serverSharedKey = prop.getProperty("sharedSecret");
+		    AuthFileLoc = prop.getProperty("AuthFile");
 		    
 		    //add the resource to authserver address, The resource for flush at authorization server is flush
 		    authServerAddress = "coaps://" + prop.getProperty("authserveraddress"); 
@@ -229,10 +233,6 @@ public class HCAPResourceServer
 			{
 				messageDeliverer = new HCAPMessageDeliverer(root, permReferenceMap);
 			}
-					
-			//initialize for cbor
-			//cborConverter.initialzer();
-			
 			
 			//server.add(resources);
 			server.setMessageDeliverer(messageDeliverer);

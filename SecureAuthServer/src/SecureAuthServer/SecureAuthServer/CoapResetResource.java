@@ -37,7 +37,7 @@ public class CoapResetResource
 				HCAPAuthorizationServer.userMap.clear();
 				HCAPAuthorizationServer.sessionMap.clear();
 				
-				new App().runEx3();
+				new App_Ex().runEx3();
 				
 				exchange.respond(ResponseCode.CONTENT, "resetDone".getBytes());
 			}

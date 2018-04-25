@@ -49,7 +49,7 @@ public class HCAPHandleRequest {
 	
 	private HashMap<Integer, Object> translis;
 	private ArrayList<Integer> stlis;
-	private HashMap<String, Object> namesArr;
+	private HashMap<String, Object> namesArr;//defs
 	private HashMap<String, Object> recievedNamesArr;
 	private ArrayList<String> stPerms;
 	private String name = null;
@@ -67,8 +67,8 @@ public class HCAPHandleRequest {
 		userID = inUserID;
 		stPerms = new ArrayList<String> ();
 
-		exLisMap = inMap;
-		jObj = inObj;
+		exLisMap = inMap; //mapping sessid to ex list
+		jObj = inObj; //capability
 		
 		//read components from capability
 		usePerm = inPermID;
@@ -601,14 +601,16 @@ public class HCAPHandleRequest {
 	public void addExceptionToList(HashMap<String, Object> inObj)
 	{
 		String addName = null;
-		if(retObj.get("name") != null)
+		if(retObj.get("name") != null) //retObj is the capability
 		{
 			addName = retObj.get("name").toString();
 		}
-		
+		//call print before new exception
 		ExceptionList ex = exLisMap.get(sessID);
-		ExceptionList newEx = new ExceptionList(addName, usePerm, currTime, ex);
+		//ExceptionList newEx = new ExceptionList(addName, usePerm, currTime, ex); //Lakshs Part which works
+		ExceptionList newEx = new ExceptionList(usePerm, currTime, ex , translis, namesArr);
 		exLisMap.put(sessID, newEx);
+		//call print after
 	}
 	
 	/**

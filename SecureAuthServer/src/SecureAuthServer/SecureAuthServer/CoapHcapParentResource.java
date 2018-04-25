@@ -43,6 +43,8 @@ public class CoapHcapParentResource
 		CoapResource getUpdateResource = CoapUpdateResource.createResource();
 		CoapResource getFlushResource = CoapFlushResource.createResource();
 		CoapResource getConfirmResource = CoapConfirmationResource.createResource();
+		CoapResource shutdown = CoapShutdownResource.createResource();
+		CoapResource checkStatus = CoapCheckStatusResource.createResource();
 		
 		
 		//added reset resource for Ex3 Part1
@@ -55,6 +57,8 @@ public class CoapHcapParentResource
 		parentResource.add(getUpdateResource);
 		parentResource.add(getFlushResource);
 		parentResource.add(getConfirmResource);
+		parentResource.add(shutdown);
+		parentResource.add(checkStatus);
 		
 		return parentResource;
 	}

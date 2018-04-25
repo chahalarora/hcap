@@ -296,14 +296,14 @@ public class ValidationTestDifferentRSAlgo2
     		//Construct resources for machine 1 -- EXPERIMENT 1
     		ConstructResourcesEx1 resources1 = new ConstructResourcesEx1();
         	resT =  resources1.construct();
-        	inPermMap = new App().createMap();
+        	inPermMap = new App_Ex().createMap();
     	}
     	else if(exNumber == 2)
     	{
     		//Construct resources for machine 2 -- EXPERIMENT 2
     		ConstructResourcesEx2 resources2 = new ConstructResourcesEx2();
     		resT = resources2.construct(machNumber);
-    		inPermMap = new App().createMap(machNumber);
+    		inPermMap = new App_Ex().createMap(machNumber);
     	}
     	else if(exNumber == 3)
     	{
@@ -317,7 +317,7 @@ public class ValidationTestDifferentRSAlgo2
     		//Construct resources for machine 2 -- EXPERIMENT 2
     		ConstructResourcesEx2 resources2 = new ConstructResourcesEx2();
     		resT = resources2.construct(12);
-    		inPermMap = new App().createMap(12);
+    		inPermMap = new App_Ex().createMap(12);
     	}
     	else
     	{
@@ -365,7 +365,7 @@ public class ValidationTestDifferentRSAlgo2
     	if(exNumber == 4)
     	{
     		//ping authorization server
-    		new App().pingAuthServer();
+    		new App_Ex().pingAuthServer();
     	}
     	
     	
@@ -374,7 +374,7 @@ public class ValidationTestDifferentRSAlgo2
     	{
     		//this is Experiment 3 Part 1
     		int exLisCount = 30000;
-        	App app = new App();
+        	App_Ex app = new App_Ex();
         	app.runEx3(exLisCount);
         	app.printToFile("/home/grads/lakshya.tandon/Desktop/DTLSExperimentsCode/ExperimentResults/Experiment3Part1", exLisCount);
         	//printTime array to a file
