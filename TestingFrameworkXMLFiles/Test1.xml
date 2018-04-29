@@ -206,11 +206,18 @@
 		</dtlsParams>
 		<encoding>cbor</encoding>
 		
-		<clientResources>
-			<resource>demoResource3</resource>
-			<resource>demoResource6</resource>
-			<resource>demoResource8</resource>
-		</clientResources>
+		<clientRequests>
+			<Test>
+				<resource>demoResource3</resource>
+				<resource>demoResource6</resource>
+				<resource>demoResource8</resource>
+			</Test>
+			<Test>
+				<resource>demoResource3</resource>
+				<resource>demoResource7</resource>
+				<resource>demoResource8</resource>
+			</Test>
+		</clientRequests>
 	
 	</Client>
 </root>

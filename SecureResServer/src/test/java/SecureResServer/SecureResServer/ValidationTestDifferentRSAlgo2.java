@@ -11,6 +11,7 @@ import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -112,7 +113,7 @@ public class ValidationTestDifferentRSAlgo2
 		
 		byte[] responsePayload = response.getPayload();
 		
-		HashMap<String, Object> responseMap;
+		Map<String, Object> responseMap;
 		if(HCAPResourceServer.isCBOR)
 		{
 			cborConverter cCon = new cborConverter();

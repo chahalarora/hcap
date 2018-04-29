@@ -3,6 +3,7 @@ package SecureResServer.SecureResServer;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.HashMap;
+import java.util.Map;
 
 public class HashFunctionality 
 {
@@ -14,7 +15,7 @@ public class HashFunctionality
 	 * @param inMap
 	 * @return true if verification succeeds, false otherwise.
 	 */
-	public static boolean verifyHash(String inHash, HashMap<String, Object> inMap, String sharedKey, String userID)
+	public static boolean verifyHash(String inHash, Map<String, Object> inMap, String sharedKey, String userID)
 	{
     	//JSONObject tempObj = new JSONObject(inObj);
     	
@@ -71,28 +72,28 @@ public class HashFunctionality
 	    return stringBuffer.toString();
 	}
 	
-	public static String getString(HashMap<String, Object> inObj)
+	public static String getString(Map<String, Object> jObj)
 	{
 		//System.out.println(inObj.toString());
 		
 		StringBuilder retStr = new StringBuilder();
 		
 		retStr.append("sessID");
-		retStr.append(inObj.get("sessID").toString());
+		retStr.append(jObj.get("sessID").toString());
 		//retStr.append("stPerm");
 		//retStr.append(inObj.get("stPerm").toString());
 		//retStr.append("transPerm");
 		//retStr.append(inObj.get("transPerm").toString());
 		retStr.append("name");
-		retStr.append(inObj.get("name").toString());
+		retStr.append(jObj.get("name").toString());
 		retStr.append("nameDefs");
 		//retStr.append(inObj.get("nameDefs"));
 		retStr.append("tCreated");
-		retStr.append(inObj.get("tCreated").toString());
+		retStr.append(jObj.get("tCreated").toString());
 		//retStr.append("tRenewed");
 		//retStr.append(inObj.get("tRenewed").toString());
 		retStr.append("certType");
-		retStr.append(inObj.get("certType").toString());
+		retStr.append(jObj.get("certType").toString());
 		
 		return retStr.toString();
 	}

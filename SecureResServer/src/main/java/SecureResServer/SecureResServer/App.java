@@ -58,7 +58,6 @@ public class App {
 	public HashMap<Pair, Long> createMap(int machineNumber)
 	{
 		HashMap<Pair, Long> inPermMap = new HashMap<Pair, Long>();
-		
 		for(int i = 1; i <= machineNumber; i++)
 		{
 			String res = "demoResource";
