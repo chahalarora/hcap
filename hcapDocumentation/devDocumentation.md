@@ -5,7 +5,7 @@ In this document you will find the developer documentation to set up tools relat
 This section mentions the installation procedure of tools required to compile and run HCAP API.
 
 ### Java Development Kit
-1. Download the file, jdk-9.minor.security.patch_linux-x64_bin.tar.gz from the following link. (Link: )
+1. Download the file, jdk-10.0.1_linux-x64_bin.tar.gz from the following link. (Link: http://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)
 2. Change the directory to the location where you want to install the JDK, then move the .tar.gz archive binary to the current directory.
 3. Unpack the tarball and install the JRE using the following. 
 > **% tar zxvf jre-9.minor.security.patch_linux-x64_bin.tar.gz**. 
