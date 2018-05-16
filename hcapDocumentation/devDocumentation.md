@@ -38,13 +38,13 @@ This section mentions the installation procedure of tools required to compile an
 Within the HCAP project, one would find the following folders.
 
 ### KeyStores
-In this the user would find two files. trustStore.jks represents the trust store while keyStore.jks represents the key store used in configuring HCAP servers and clients.
+In this the user would find two files. trustStore.jks represents the trust store while keyStore.jks represents the key store used in configuring HCAP servers and clients. These stores are used by the scandium library for DTLS authentication.
 
 ### PropertiesFiles
-This folder contains the properties files for authorization server, resource server and the client.
+This folder contains the properties files for authorization server, resource server and the client. These properties files have some parameters used to configure the client and the servers.
 
 ### SecureAuthServer
-This contains the following important sub folders.
+This folder contains the following sub folders.
 
 #### doc
 This folder contains the javadoc for authorization server code.
@@ -58,14 +58,12 @@ It contains the data structure used for storing the exception list.
 2. SecureAuthServer/SecureAuthServer: It contains the actual HCAP Authorization server code.
 
 3. StateMachines: 
-It contains some demo state machines encoded as java code.
+It contains some demo state machines encoded as java class files.
 
 
+Apart from the above folders, SecureAuthServer contains important files such as Californium.properties and pom.xml.
 
-
-Apart from the above folders, it SecureAuthServer contains important files such as Californium.properties and pom.xml.
-
-_**Californium.properties**_ file is used to configure the calfornium CoAP servers. 
+_**Californium.properties**_ file is used by the californium library to configure the calfornium CoAP servers. 
 
 _**pom.xml**_ acts as the maven configuration file for the project. It contains all the dependencies of the project.
 
@@ -82,7 +80,7 @@ It contains the following sub folders.
 
 2. SecureResServer/SecureResServer: It contains the actual resource server code.
 
-3. ExperimentResources: It contains the code for some demo resources which can be attached to the resource server.
+3. ExperimentResources: It contains the code for some demo resources which can be added to the resource server. Developers wanting to write there own resources can refer to some sample files in this folder to get a head start.
 
 #### src/test/java/SecureResServer/SecureResServer
 This folder contains some tests for the resource server.
@@ -90,7 +88,7 @@ This folder contains some tests for the resource server.
 
 Apart from the above folders, it SecureResServer contains important files such as Californium.properties and pom.xml.
 
-_**Californium.properties**_ file is used to configure the calfornium CoAP servers. 
+_**Californium.properties**_ file is used by the californium library to configure the calfornium CoAP servers. 
 
 _**pom.xml**_ acts as the maven configuration file for the project. It contains all the dependencies of the project.
 
@@ -108,13 +106,13 @@ This folder contains some tests for the client.
 
 Apart from the above folders, it SecureClient contains important files such as Californium.properties and pom.xml.
 
-_**Californium.properties**_ file is used to configure the calfornium CoAP servers. 
+_**Californium.properties**_ file is used by the californium library to configure the calfornium CoAP clients. 
 
 _**pom.xml**_ acts as the maven configuration file for the project. It contains all the dependencies of the project.
 
 ## How to build
 ### Compile
-Go the directory containing the code for component (authorization server, resource server or the client) you want to compile. Run the following commands.
+Go the directory containing the code for a component (authorization server, resource server or the client) you want to compile. Run the following commands.
 
 >mvn clean
 
@@ -161,7 +159,7 @@ Properties files in HCAP act as configuration files for each of the HCAP compone
 ### Authorization Server Properties File
 The following parameters are to be set in AuthServer.properties file.
 
-* **isCBOR**: Set this as true if CBOR is to be used as data transfer format and false to used JSON as data transfer format.
+* **isCBOR**: Set this as true if CBOR is to be used as data transfer format or false to used JSON as data transfer format.
 
 * **trustStoreLocation**: Specify the path of trust store used.
 
@@ -194,7 +192,7 @@ The following parameters are to be set in ResServer.properties file.
 
 * **hard GC Threshold**: This represents the hard GC threshhold in HCAP. For eg: 400 means that hard GC will occur after ever 400 requests to the resource server.
 
-* **isCBOR**: Set this as true if CBOR is to be used as data transfer format and false to used JSON as data transfer format.
+* **isCBOR**: Set this as true if CBOR is to be used as data transfer format or false to used JSON as data transfer format.
 
 * **sharedSecret**: Specify this to add a shared secret shared between authorization server and resource server.
 

@@ -16,7 +16,7 @@ public class App
     public void demoClient()
     {
     	//to be taken from command line
-    	String propFileLocation = "/home/grads/lakshya.tandon/Desktop/MultiResourceServer-23Oct2017/PropertiesFiles/Client.properties";
+    	String propFileLocation = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\Client.properties";
     	
     	
         ClientBuilder client = new ClientBuilder(propFileLocation);
