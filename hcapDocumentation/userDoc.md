@@ -17,29 +17,29 @@ The authorization server needs to know the security automaton for each client in
 
 A sample client Security Automaton is provided with the code. You can find this in StateMachines/InitStateMachine.java.
 
-Once you have written the class to represent the security automaton. An instantiation of this class would go as an input to **addClientStateMachine** method of the authorization API.
+Once you have written the class to represent a security automaton. An instantiation of this class would go as one of the inputs to **addClientStateMachine** method of the authorization API.
 
 **addClientStateMachine** accepts three parameters.
     
 * Client name as represented in the client certificate.
 * An instantiation of client security automaton.
-* The size of fragment. Eg: if the size is 0, the client capability would contain permissions about only the current state. If the size is 1, the client can traverse one extra state without the need to visit the authorization server. If the size is -1, the authorization server encodes the full security automaton inside the capability, the client does not need to visit the authorization server at all, he/she can use the same capability to excersise permissions with the resource servers.
+* The size of fragment. Eg: if the size is 0, the client capability would contain permissions about only the current state. If the size is 1, the client can traverse one extra state without the need to visit the authorization server. If the size is -1, the authorization server encodes the full security automaton inside the capability, the client does not need to visit the authorization server at all.
 
 
 #### Information about resource servers
 
 ##### Shared secret of resource server
-The authorization server also needs to know some information about the resource servers it serves. Each resource server shares a shared secret with the authorization server so that both of these can process tickets signed by each other. Thus the user needs to let the authorization server know about the resource servers shared secret. For the same it uses **addResourceServer** method which accepts two parameters. The first parameter is the **ip address + portnumber** of the resource server(basically the identity of the server). The second parameter is the shared secret for that resource server. A usage example of this can be found in **App.java** source file.
+The authorization server also needs to know some information about the resource servers it serves. Each resource server shares a shared secret with the authorization server so that both of these can process tickets signed by each other. Thus, the user needs to let the authorization server know about the resource servers shared secret. For the same it uses **addResourceServer** method which accepts two parameters. The first parameter is the **ip address + portnumber** which is the address of the resource server. The second parameter is the shared secret for that resource server. A usage example of this can be found in **App.java** source file.
 
 ##### State mapping to resource server
-A security automaton can contain a number of states. In a multiple resource server scenario. A single resource server can be representative of a single state or multiple states. The authorization server should know identity of the resource server which is representative of the current client state. This is because the authorization server would use the representative resource servers shared secret to sign the capability which is to be presented to it.
+A security automaton can contain a number of states. In a multiple resource server scenario. A single resource server can be representative of a single state or multiple states. The authorization server should know identity of the resource server which is representative of the current client state. This is because the authorization server would use the representative resource servers shared secret to sign the capability issued to the client.
 
-**addToStateRSMap** can be used to do the same. It accepts two parameters. The first one is the state from the security automaton. The second one is the address of the resource server + port number of the resource server (basically the identity). A usage example of this can be found in **App.java** source file.
+**addToStateRSMap** can be used to do the same. It accepts two parameters. The first one is the state from the security automaton. The second one is **ip address + portnumber** which is the address of the resource server. A usage example of this can be found in **App.java** source file.
 
 
 
 #### Starting the Authorization Server
-Once all inputs are given to the authorization server object, **startHCAPServer** method can be used to start the server. This method does not accept any parameters but returns a server object which can be used to shut down the server. **stopHCAPServer** can be used to shut down the server by passing the returned server object as a parameter.
+Once all inputs are given to the authorization server object, **startHCAPServer** method can be invoked on the object to start the server. This method does not accept any parameters but returns a server object which can be used to shut down the server. **stopHCAPServer** can be invoked on the returned object to shut down the server.
 
 
 ### Resource Server
@@ -52,13 +52,19 @@ The resource server reads parameters from the resource server's properties file.
 After setting the parameteres in properties file, the location of the file goes as an input to the constructor of HCAPResourceServer class.
 
 #### Resources to be hosted at the server
-The resource server next needs to know the resources which it should be hosting. These resources go as a parameter to addResourcesToServer method defined by HCAPResourceServer class. This method accepts an array of object of CoapResource class. The user needs to create this array before passing it to addResourcesToServer method. An example to construct resources has been provided in ConstructResourcesTestMachine class.
+The resource server next needs to know the resources which it should be hosting. These resources go as a parameter to addResourcesToServer method defined by HCAPResourceServer class. This method accepts an array of objects of type CoapResource. The user needs to create this array before passing it to addResourcesToServer method. An example to construct resources has been provided in ExperimentResources/ConstructResourcesTestMachine.java.
 
-#### A map which maps code-resource pair to permission
+Once an array is created, it goes as an input to *addResourcesToServer* method. An example can be found in lines 22 - 24 of file SecureResServer.SecureResServer/App.java.
 
+#### A map which maps method-resource pair to permission
+Permissions in HCAP are represented using a CoAP method and a resource ID. As HCAP follows a RESTful architectural style, each resource is presented using a unique URI. CoAP metods are invoked on the URI to get access to a resource. The resouce server can fetch the CoAP method and the resource ID from the request to see the permisson which is requested. But for enabling such a functionality, it needs to know the mapping between (CoAPMethod + ResourceID) and permission. This mapping is to be provided by the user configuring HCAPResourceServer. 
+
+The user can write a method which returns a map mapping CoAP Method-ResourceID pair to permission. An example to show how this can be done is given in *createMap* method (Lines 54 - 66) of file SecureResServer.SecureResServer/App.java.
+
+Once user has createed a map, this map goes as a second parameter to the contructor of HCAPResourceServer.
 
 #### Starting the resource server
-Once all inputs are given to the resource server object, **startHCAPServer** method can be used to start the server. This method does not accept any parameters but returns a server object which can be used to shut down the server. **stopHCAPServer** can be used to shut down the server by passing the returned server object as a parameter.
+Once all inputs are given to the resource server object, **startHCAPServer** method can be used to start the server. This method does not accept any parameters but returns a server object which can be used to shut down the server. **stopHCAPServer** can be invoked on the returned object to shut down the server.
 
 
 ## Setting Up the Client

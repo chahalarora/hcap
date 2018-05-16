@@ -16,20 +16,16 @@ public class App {
     	
     	CoapResource[] resT = null;
     	HashMap<Pair, Long> inPermMap = null;
+    	//to be taken as user input
+    	inPermMap = new App().createMap(12);
+    	server = new HCAPResourceServer(propFileLocation, inPermMap);
     	
     	System.out.println("Demo resources initiated for resource server.");
     	//Construct resources for test machine
     	ConstructResourcesTestMachine resTest = new ConstructResourcesTestMachine();
     	resT =  resTest.construct(20);
-    	
-    	
-    	//to be taken as user input
-    	inPermMap = new App().createMap(12);    
-    	
-    	
-    	server = new HCAPResourceServer(propFileLocation, inPermMap);
-    	
     	server.addResourcesToServer(resT);
+    	
     	
     	CoapResource parentRes = CoapHcapParentResource.createResource();
     	server.addResourcesToServer(parentRes);

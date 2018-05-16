@@ -30,11 +30,11 @@
 <h2 id="directory-structure">Directory Structure</h2>
 <p>Within the HCAP project, one would find the following folders.</p>
 <h3 id="keystores">KeyStores</h3>
-<p>In this the user would find two files. trustStore.jks represents the trust store while keyStore.jks represents the key store used in configuring HCAP servers and clients.</p>
+<p>In this the user would find two files. trustStore.jks represents the trust store while keyStore.jks represents the key store used in configuring HCAP servers and clients. These stores are used by the scandium library for DTLS authentication.</p>
 <h3 id="propertiesfiles">PropertiesFiles</h3>
-<p>This folder contains the properties files for authorization server, resource server and the client.</p>
+<p>This folder contains the properties files for authorization server, resource server and the client. These properties files have some parameters used to configure the client and the servers.</p>
 <h3 id="secureauthserver">SecureAuthServer</h3>
-<p>This contains the following important sub folders.</p>
+<p>This folder contains the following sub folders.</p>
 <h4 id="doc">doc</h4>
 <p>This folder contains the javadoc for authorization server code.</p>
 <h4 id="src">src</h4>
@@ -42,10 +42,10 @@
 <ol type="1">
 <li><p>ExceptionList: It contains the data structure used for storing the exception list.</p></li>
 <li><p>SecureAuthServer/SecureAuthServer: It contains the actual HCAP Authorization server code.</p></li>
-<li><p>StateMachines: It contains some demo state machines encoded as java code.</p></li>
+<li><p>StateMachines: It contains some demo state machines encoded as java class files.</p></li>
 </ol>
-<p>Apart from the above folders, it SecureAuthServer contains important files such as Californium.properties and pom.xml.</p>
-<p><em><strong>Californium.properties</strong></em> file is used to configure the calfornium CoAP servers.</p>
+<p>Apart from the above folders, SecureAuthServer contains important files such as Californium.properties and pom.xml.</p>
+<p><em><strong>Californium.properties</strong></em> file is used by the californium library to configure the calfornium CoAP servers.</p>
 <p><em><strong>pom.xml</strong></em> acts as the maven configuration file for the project. It contains all the dependencies of the project.</p>
 <h3 id="secureresserver">SecureResServer</h3>
 <p>This contains the following important sub folders.</p>
@@ -56,12 +56,12 @@
 <ol type="1">
 <li><p>ExceptionList: It contains the data structure used for storing the exception list.</p></li>
 <li><p>SecureResServer/SecureResServer: It contains the actual resource server code.</p></li>
-<li><p>ExperimentResources: It contains the code for some demo resources which can be attached to the resource server.</p></li>
+<li><p>ExperimentResources: It contains the code for some demo resources which can be added to the resource server. Developers wanting to write there own resources can refer to some sample files in this folder to get a head start.</p></li>
 </ol>
 <h4 id="srctestjavasecureresserversecureresserver">src/test/java/SecureResServer/SecureResServer</h4>
 <p>This folder contains some tests for the resource server.</p>
 <p>Apart from the above folders, it SecureResServer contains important files such as Californium.properties and pom.xml.</p>
-<p><em><strong>Californium.properties</strong></em> file is used to configure the calfornium CoAP servers.</p>
+<p><em><strong>Californium.properties</strong></em> file is used by the californium library to configure the calfornium CoAP servers.</p>
 <p><em><strong>pom.xml</strong></em> acts as the maven configuration file for the project. It contains all the dependencies of the project.</p>
 <h3 id="secureclient">SecureClient</h3>
 <p>This contains the following important sub folders.</p>
@@ -72,11 +72,11 @@
 <h4 id="srctestjavasecureclientsecureclient">src/test/java/SecureClient/SecureClient</h4>
 <p>This folder contains some tests for the client.</p>
 <p>Apart from the above folders, it SecureClient contains important files such as Californium.properties and pom.xml.</p>
-<p><em><strong>Californium.properties</strong></em> file is used to configure the calfornium CoAP servers.</p>
+<p><em><strong>Californium.properties</strong></em> file is used by the californium library to configure the calfornium CoAP clients.</p>
 <p><em><strong>pom.xml</strong></em> acts as the maven configuration file for the project. It contains all the dependencies of the project.</p>
 <h2 id="how-to-build">How to build</h2>
 <h3 id="compile">Compile</h3>
-<p>Go the directory containing the code for component (authorization server, resource server or the client) you want to compile. Run the following commands.</p>
+<p>Go the directory containing the code for a component (authorization server, resource server or the client) you want to compile. Run the following commands.</p>
 <blockquote>
 <p>mvn clean</p>
 </blockquote>
@@ -120,7 +120,7 @@
 <h3 id="authorization-server-properties-file">Authorization Server Properties File</h3>
 <p>The following parameters are to be set in AuthServer.properties file.</p>
 <ul>
-<li><p><strong>isCBOR</strong>: Set this as true if CBOR is to be used as data transfer format and false to used JSON as data transfer format.</p></li>
+<li><p><strong>isCBOR</strong>: Set this as true if CBOR is to be used as data transfer format or false to used JSON as data transfer format.</p></li>
 <li><p><strong>trustStoreLocation</strong>: Specify the path of trust store used.</p></li>
 <li><p><strong>trustStorePassword</strong>: Specify the password used for trust store.</p></li>
 <li><p><strong>keyStoreLocation</strong>: Specify the path of key store used.</p></li>
@@ -139,7 +139,7 @@
 <li><p><strong>port</strong>: Specify the port number here, the server would run on the port specified.</p></li>
 <li><p><strong>updateRequestCounter</strong>: This represents the soft GC threshold in HCAP. For eg: 200 means that soft GC will occur after every 400 requests to the resource server.</p></li>
 <li><p><strong>hard GC Threshold</strong>: This represents the hard GC threshhold in HCAP. For eg: 400 means that hard GC will occur after ever 400 requests to the resource server.</p></li>
-<li><p><strong>isCBOR</strong>: Set this as true if CBOR is to be used as data transfer format and false to used JSON as data transfer format.</p></li>
+<li><p><strong>isCBOR</strong>: Set this as true if CBOR is to be used as data transfer format or false to used JSON as data transfer format.</p></li>
 <li><p><strong>sharedSecret</strong>: Specify this to add a shared secret shared between authorization server and resource server.</p></li>
 </ul>
 <h3 id="client-properties-file">Client Properties File</h3>
