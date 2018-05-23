@@ -131,6 +131,31 @@
 						</trans>
 					</transitions>
 				</SA>
+				
+				<FragmentExceptions>
+					<CustomFragsForStates>
+						<CurrentState name="">
+							<AllowedPermission name="">
+								<StateReached name="">
+									<AllowedPermission name="">
+										<StateReached name=""></StateReached>
+									</AllowedPermission>
+								</StateReached>
+							</AllowedPermission>
+						</CurrentState>
+					
+						<CurrentState name="">
+					
+						</CurrentState>
+					
+					</CustomFragsForStates>
+					
+					
+					<ReachableStatesFromCurrentStates>
+					
+					</ReachableStatesFromCurrentStates>
+				</FragmentExceptions>
+				
 			</client>
 		</clients>
 		

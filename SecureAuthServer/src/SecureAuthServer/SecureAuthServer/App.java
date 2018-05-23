@@ -25,7 +25,7 @@ public class App {
     	//Test Machine
         
     	
-    	server.addClientStateMachine("C=CA,L=Ottawa,O=Eclipse IoT,OU=Californium,CN=cf-client", new InitStateMachine(), -1);
+    	server.addClientStateMachine("C=CA,L=Ottawa,O=Eclipse IoT,OU=Californium,CN=cf-client", new InitStateMachine(), 2);
         server.addResourceServer("127.0.0.1:8080", "myKey");
         server.addToStateRSMap("St1", "127.0.0.1:8080");
         

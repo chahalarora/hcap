@@ -162,7 +162,10 @@ public class HCAPHandleRequest {
 		
 		while(exlis != null)
 		{
-			lisStack.add(exlis);
+			if(exlis.getPerm() != 0)
+			{
+				lisStack.add(exlis);
+			}
 			exlis = exlis.getEx();
 		}
 		
@@ -170,7 +173,8 @@ public class HCAPHandleRequest {
 		{
 			List<Object> permTimeArr = new ArrayList<Object>();
 			ExceptionList templis = lisStack.pop();
-			if(tsCreated > templis.getExTime())
+			//if(tsCreated > templis.getExTime())
+			if(HCAPResourceServer.lastGCTime > templis.getExTime())
 			{
 				//don't add exception to the exObj
 			}
@@ -298,6 +302,7 @@ public class HCAPHandleRequest {
 			{
 				currTime = System.currentTimeMillis();
 				
+				addExceptionToList();
 				//check if namesArr has further propagation
 				if(!checkNamesArrProp())
 				{
@@ -312,9 +317,7 @@ public class HCAPHandleRequest {
 					//return retObj;
 				}
 				
-				addExceptionToList(retObj);
 				
-				//System.out.println("Its a transitioning request.");
 				
 				//add baton length to map
 				if(HCAPResourceServer.batonLengthMap.containsKey(sessID))
@@ -600,16 +603,18 @@ public class HCAPHandleRequest {
 	 * This method is used to add a permission to the exception list of resource server.
 	 * 
 	 */
-	public void addExceptionToList(Map<String, Object> retObj2)
+	public void addExceptionToList()
 	{
-		String addName = null;
+		//String addName = null;
+		/*
 		if(retObj.get("name") != null)
 		{
 			addName = retObj.get("name").toString();
 		}
+		*/
 		
 		ExceptionList ex = exLisMap.get(sessID);
-		ExceptionList newEx = new ExceptionList(addName, usePerm, currTime, ex);
+		ExceptionList newEx = new ExceptionList(name, usePerm, currTime, ex);
 		exLisMap.put(sessID, newEx);
 	}
 	
