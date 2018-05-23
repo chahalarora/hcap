@@ -88,3 +88,30 @@ If a state update request is retuned by the **requestAccess** method. The client
 
 ### Getting back a lost capability
 If a client looses its capability, it can use **reIssueCapabilityFromAuthServer** method provided by **ClientBuilder** to get a new capability. This method accepts the client's sessionID as a parameter. It returns the capability or a state update request. If a state update request is returned, the client needs to contact the authorization server to get a new capability. See previous step for this.
+
+
+## Important Resources at Servers
+The authorization server and resource server both contain some resource to which HCAP administrators or clients can send requests to perform numerous adminitrative operations.
+
+### Authorization Server
+
+#### Check Status resource
+This resource can be used to check the status of the authorization server. A response to request directed towards this resource would be a success message along with server timestamp. The requestor would only receive a response if the server is up and running. This resource is represented by *checkStatus* keyword requestors would use GET method to send a request to the resource.
+
+#### Revoke Resource
+The adminitrator defines client and their associated state machines (Security Automaton) at the authorization server. If it wants to revoke some clients once the server is up, it can use this revoke resource. It is represented by *revoke* keyword and administrators can send a POST request to this resource to revoke clients.
+
+#### Shutdown Resource
+An HCAP administrator might want to shut down the authorization server for maintainance. For it it would have to send a request to shutdown resource which would then initiate the shut down sequence. This resource is represented by *shutdown* keyword and the requestor would send a POST request to this resource.
+
+
+### Resource Server
+
+#### Check Status resource
+This resource can be used to check the status of the resource server. A response to request directed towards this resource would be a success message along with server timestamp. The requestor would only receive a response if the server is up and running. This resource is represented by *checkStatus* keyword requestors would use GET method to send a request to the resource.
+
+#### Shutdown Resource
+An HCAP administrator might want to shut down a resource server for maintainance. For it it would have to send a request to shutdown resource which would then initiate the shut down sequence. This resource is represented by *shutdown* keyword and the requestor would send a POST request to this resource.
+
+#### Revoke Resource
+The resource server also maintains some information about the client, such as their associated exception list. After removing a client from the authorization server, the administrator would also want remove the same client from the resource server.For this, it can use the revoke resource. It is represented by *revoke* keyword and administrators can send a POST request to this resource to revoke clients.

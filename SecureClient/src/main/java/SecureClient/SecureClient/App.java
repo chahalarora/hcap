@@ -51,6 +51,8 @@ public class App
         	System.out.println(capability.toString());
         }
         
+       
+        
         //get a new capability after state update request is issued
         /*
         HashMap<String, Object> updateRequest = capability;
@@ -69,6 +71,9 @@ public class App
         	
         	System.out.println(capability.toString());
         }
+        
+      
+       
         
         if(client.requestAccess(capability, null, "demoResource8"))
         {

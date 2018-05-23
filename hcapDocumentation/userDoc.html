@@ -55,3 +55,19 @@
 <p>If a state update request is retuned by the <strong>requestAccess</strong> method. The client can then use <strong>sendUpdateRequestAndGetCapability</strong> to get a new usable capability. This method accepts one parameter, which is the state update request returned by the resource server. As a result of execution of this method, it return a new capability which can be used with the resource server.</p>
 <h3 id="getting-back-a-lost-capability">Getting back a lost capability</h3>
 <p>If a client looses its capability, it can use <strong>reIssueCapabilityFromAuthServer</strong> method provided by <strong>ClientBuilder</strong> to get a new capability. This method accepts the client’s sessionID as a parameter. It returns the capability or a state update request. If a state update request is returned, the client needs to contact the authorization server to get a new capability. See previous step for this.</p>
+<h2 id="important-resources-at-servers">Important Resources at Servers</h2>
+<p>The authorization server and resource server both contain some resource to which HCAP administrators or clients can send requests to perform numerous adminitrative operations.</p>
+<h3 id="authorization-server-1">Authorization Server</h3>
+<h4 id="check-status-resource">Check Status resource</h4>
+<p>This resource can be used to check the status of the authorization server. A response to request directed towards this resource would be a success message along with server timestamp. The requestor would only receive a response if the server is up and running. This resource is represented by <em>checkStatus</em> keyword requestors would use GET method to send a request to the resource.</p>
+<h4 id="revoke-resource">Revoke Resource</h4>
+<p>The adminitrator defines client and their associated state machines (Security Automaton) at the authorization server. If it wants to revoke some clients once the server is up, it can use this revoke resource. It is represented by <em>revoke</em> keyword and administrators can send a POST request to this resource to revoke clients.</p>
+<h4 id="shutdown-resource">Shutdown Resource</h4>
+<p>An HCAP administrator might want to shut down the authorization server for maintainance. For it it would have to send a request to shutdown resource which would then initiate the shut down sequence. This resource is represented by <em>shutdown</em> keyword and the requestor would send a POST request to this resource.</p>
+<h3 id="resource-server-1">Resource Server</h3>
+<h4 id="check-status-resource-1">Check Status resource</h4>
+<p>This resource can be used to check the status of the resource server. A response to request directed towards this resource would be a success message along with server timestamp. The requestor would only receive a response if the server is up and running. This resource is represented by <em>checkStatus</em> keyword requestors would use GET method to send a request to the resource.</p>
+<h4 id="shutdown-resource-1">Shutdown Resource</h4>
+<p>An HCAP administrator might want to shut down a resource server for maintainance. For it it would have to send a request to shutdown resource which would then initiate the shut down sequence. This resource is represented by <em>shutdown</em> keyword and the requestor would send a POST request to this resource.</p>
+<h4 id="revoke-resource-1">Revoke Resource</h4>
+<p>The resource server also maintains some information about the client, such as their associated exception list. After removing a client from the authorization server, the administrator would also want remove the same client from the resource server.For this, it can use the revoke resource. It is represented by <em>revoke</em> keyword and administrators can send a POST request to this resource to revoke clients.</p>
