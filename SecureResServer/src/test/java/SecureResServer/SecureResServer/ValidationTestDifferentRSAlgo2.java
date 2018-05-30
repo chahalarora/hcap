@@ -11,6 +11,7 @@ import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -112,7 +113,7 @@ public class ValidationTestDifferentRSAlgo2
 		
 		byte[] responsePayload = response.getPayload();
 		
-		HashMap<String, Object> responseMap;
+		Map<String, Object> responseMap;
 		if(HCAPResourceServer.isCBOR)
 		{
 			cborConverter cCon = new cborConverter();
@@ -289,7 +290,7 @@ public class ValidationTestDifferentRSAlgo2
     		System.out.println("Demo resources initiated for resource server.");
     		//Construct resources for test machine
     		ConstructResourcesTestMachine resTest = new ConstructResourcesTestMachine();
-        	resT =  resTest.construct();
+        	resT =  resTest.construct(20);
     	}
     	else if(exNumber == 1)
     	{
@@ -310,7 +311,7 @@ public class ValidationTestDifferentRSAlgo2
     		//just define some demo resources in order for resource server to not produce any errors
     		//Construct resources for test machine
     		ConstructResourcesTestMachine resTest = new ConstructResourcesTestMachine();
-        	resT =  resTest.construct();
+        	resT =  resTest.construct(20);
     	}
     	else if(exNumber == 4)
     	{

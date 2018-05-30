@@ -52,7 +52,6 @@ public class batonCompression
 	public ExceptionList compress()
 	{
 		//ArrayList<ExceptionList> exStore = new ArrayList<ExceptionList>();
-		HashMap<String, ExceptionList> lisStore = new HashMap<String, ExceptionList>();
 		
 		while(ex.getEx() != null)
 		{

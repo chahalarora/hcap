@@ -1,0 +1,73 @@
+<h1 id="hcap-user-documentation">HCAP: User Documentation</h1>
+<h2 id="setting-up-servers">Setting up Servers</h2>
+<p>This section describes how an HCAP user would be able to set up authorization and resource servers and start their working with HCAP.</p>
+<p>It is assumed that the user already has downloaded the code for authorization server and the resource server. If not, use https://github.com/HCAPDevTeam/hcap to download code.</p>
+<h3 id="authorization-server">Authorization Server</h3>
+<p>To set up the authorization server, the authorization server code accepts few inputs. The inputs are to be provided to the code before starting the server. The inputs are:</p>
+<h4 id="properties-file-location">Properties file location</h4>
+<p>The authorization server reads parameters from the authorization server’s properties file. For more information regarding properties file parameters refer developer documentation.</p>
+<p>After setting the parameteres in properties file, the location of the file goes as an input to the constructor of HCAPAuthorizationServer class.</p>
+<h4 id="clients-securityautomaton">Client’s SecurityAutomaton</h4>
+<p>The authorization server needs to know the security automaton for each client in order to provide capabilities. The user needs to write a class to represent a state machine. This class implements the SecurityAutomaton inerface found in the authorization server code.</p>
+<p>A sample client Security Automaton is provided with the code. You can find this in StateMachines/InitStateMachine.java.</p>
+<p>Once you have written the class to represent a security automaton. An instantiation of this class would go as one of the inputs to <strong>addClientStateMachine</strong> method of the authorization API.</p>
+<p><strong>addClientStateMachine</strong> accepts three parameters.</p>
+<ul>
+<li>Client name as represented in the client certificate.</li>
+<li>An instantiation of client security automaton.</li>
+<li>The size of fragment. Eg: if the size is 0, the client capability would contain permissions about only the current state. If the size is 1, the client can traverse one extra state without the need to visit the authorization server. If the size is -1, the authorization server encodes the full security automaton inside the capability, the client does not need to visit the authorization server at all.</li>
+</ul>
+<h4 id="information-about-resource-servers">Information about resource servers</h4>
+<h5 id="shared-secret-of-resource-server">Shared secret of resource server</h5>
+<p>The authorization server also needs to know some information about the resource servers it serves. Each resource server shares a shared secret with the authorization server so that both of these can process tickets signed by each other. Thus, the user needs to let the authorization server know about the resource servers shared secret. For the same it uses <strong>addResourceServer</strong> method which accepts two parameters. The first parameter is the <strong>ip address + portnumber</strong> which is the address of the resource server. The second parameter is the shared secret for that resource server. A usage example of this can be found in <strong>App.java</strong> source file.</p>
+<h5 id="state-mapping-to-resource-server">State mapping to resource server</h5>
+<p>A security automaton can contain a number of states. In a multiple resource server scenario. A single resource server can be representative of a single state or multiple states. The authorization server should know identity of the resource server which is representative of the current client state. This is because the authorization server would use the representative resource servers shared secret to sign the capability issued to the client.</p>
+<p><strong>addToStateRSMap</strong> can be used to do the same. It accepts two parameters. The first one is the state from the security automaton. The second one is <strong>ip address + portnumber</strong> which is the address of the resource server. A usage example of this can be found in <strong>App.java</strong> source file.</p>
+<h4 id="starting-the-authorization-server">Starting the Authorization Server</h4>
+<p>Once all inputs are given to the authorization server object, <strong>startHCAPServer</strong> method can be invoked on the object to start the server. This method does not accept any parameters but returns a server object which can be used to shut down the server. <strong>stopHCAPServer</strong> can be invoked on the returned object to shut down the server.</p>
+<h3 id="resource-server">Resource Server</h3>
+<p>Resource server needs some user inputs to start. These inputs are to be provided before calling the start method on the server object. The inputs are listed below.</p>
+<h4 id="properties-file-location-1">Properties file location</h4>
+<p>The resource server reads parameters from the resource server’s properties file. For more information regarding properties file parameters refer developer documentation.</p>
+<p>After setting the parameteres in properties file, the location of the file goes as an input to the constructor of HCAPResourceServer class.</p>
+<h4 id="resources-to-be-hosted-at-the-server">Resources to be hosted at the server</h4>
+<p>The resource server next needs to know the resources which it should be hosting. These resources go as a parameter to addResourcesToServer method defined by HCAPResourceServer class. This method accepts an array of objects of type CoapResource. The user needs to create this array before passing it to addResourcesToServer method. An example to construct resources has been provided in ExperimentResources/ConstructResourcesTestMachine.java.</p>
+<p>Once an array is created, it goes as an input to <em>addResourcesToServer</em> method. An example can be found in lines 22 - 24 of file SecureResServer.SecureResServer/App.java.</p>
+<h4 id="a-map-which-maps-method-resource-pair-to-permission">A map which maps method-resource pair to permission</h4>
+<p>Permissions in HCAP are represented using a CoAP method and a resource ID. As HCAP follows a RESTful architectural style, each resource is presented using a unique URI. CoAP metods are invoked on the URI to get access to a resource. The resouce server can fetch the CoAP method and the resource ID from the request to see the permisson which is requested. But for enabling such a functionality, it needs to know the mapping between (CoAPMethod + ResourceID) and permission. This mapping is to be provided by the user configuring HCAPResourceServer.</p>
+<p>The user can write a method which returns a map mapping CoAP Method-ResourceID pair to permission. An example to show how this can be done is given in <em>createMap</em> method (Lines 54 - 66) of file SecureResServer.SecureResServer/App.java.</p>
+<p>Once user has createed a map, this map goes as a second parameter to the contructor of HCAPResourceServer.</p>
+<h4 id="starting-the-resource-server">Starting the resource server</h4>
+<p>Once all inputs are given to the resource server object, <strong>startHCAPServer</strong> method can be used to start the server. This method does not accept any parameters but returns a server object which can be used to shut down the server. <strong>stopHCAPServer</strong> can be invoked on the returned object to shut down the server.</p>
+<h2 id="setting-up-the-client">Setting Up the Client</h2>
+<p>The client machine is sends requests to both the servers. It gets capabilties from the authorization server. And using those capabilities, it tries to access resources hosted by the resource servers.</p>
+<p>The ClientBuilder class in HCAP client API provides functionality to perform the above mentioned operations.</p>
+<h3 id="creating-an-instance-of-clientbuilder">Creating an instance of ClientBuilder</h3>
+<p>The constructor of <strong>ClientBuilder</strong> class accepts the location of properties file for client. Pass it as an argument and create an instance of the class to be used for later operations.</p>
+<blockquote>
+<p>For more information regarding the contents client properties file, refer developer documentation.</p>
+</blockquote>
+<h3 id="getting-a-new-capability">Getting a new capability</h3>
+<p>The first step of a client is to get a new capability from the authorization server. For this, <strong>ClientBuilder</strong> provides method called <strong>getCapability</strong>. This method does not expect any parameters and returns a capability corresponding to the current client state after contacting the authorization server.</p>
+<h3 id="requesting-acccess-to-resources-at-a-resource-server">Requesting acccess to resources at a resource server</h3>
+<p>For this, <strong>ClientBuilder</strong> provides method called <strong>requestAccess</strong>. It accepts three parameters, the first is the capability to be used, the second is the payload to be delivered to the resource and the third is the name of the resource it self. After execution of this method, it returns a capability or a state update request. If a capability is returned, the client can again use <strong>requestAccess</strong> to access the next resource at the resource server. If a state update is returned, then see below for further information.</p>
+<h3 id="requesting-a-new-capability-after-state-update-request-is-returned">Requesting a new capability after state update request is returned</h3>
+<p>If a state update request is retuned by the <strong>requestAccess</strong> method. The client can then use <strong>sendUpdateRequestAndGetCapability</strong> to get a new usable capability. This method accepts one parameter, which is the state update request returned by the resource server. As a result of execution of this method, it return a new capability which can be used with the resource server.</p>
+<h3 id="getting-back-a-lost-capability">Getting back a lost capability</h3>
+<p>If a client looses its capability, it can use <strong>reIssueCapabilityFromAuthServer</strong> method provided by <strong>ClientBuilder</strong> to get a new capability. This method accepts the client’s sessionID as a parameter. It returns the capability or a state update request. If a state update request is returned, the client needs to contact the authorization server to get a new capability. See previous step for this.</p>
+<h2 id="important-resources-at-servers">Important Resources at Servers</h2>
+<p>The authorization server and resource server both contain some resource to which HCAP administrators or clients can send requests to perform numerous adminitrative operations.</p>
+<h3 id="authorization-server-1">Authorization Server</h3>
+<h4 id="check-status-resource">Check Status resource</h4>
+<p>This resource can be used to check the status of the authorization server. A response to request directed towards this resource would be a success message along with server timestamp. The requestor would only receive a response if the server is up and running. This resource is represented by <em>checkStatus</em> keyword requestors would use GET method to send a request to the resource.</p>
+<h4 id="revoke-resource">Revoke Resource</h4>
+<p>The adminitrator defines client and their associated state machines (Security Automaton) at the authorization server. If it wants to revoke some clients once the server is up, it can use this revoke resource. It is represented by <em>revoke</em> keyword and administrators can send a POST request to this resource to revoke clients.</p>
+<h4 id="shutdown-resource">Shutdown Resource</h4>
+<p>An HCAP administrator might want to shut down the authorization server for maintainance. For it it would have to send a request to shutdown resource which would then initiate the shut down sequence. This resource is represented by <em>shutdown</em> keyword and the requestor would send a POST request to this resource.</p>
+<h3 id="resource-server-1">Resource Server</h3>
+<h4 id="check-status-resource-1">Check Status resource</h4>
+<p>This resource can be used to check the status of the resource server. A response to request directed towards this resource would be a success message along with server timestamp. The requestor would only receive a response if the server is up and running. This resource is represented by <em>checkStatus</em> keyword requestors would use GET method to send a request to the resource.</p>
+<h4 id="shutdown-resource-1">Shutdown Resource</h4>
+<p>An HCAP administrator might want to shut down a resource server for maintainance. For it it would have to send a request to shutdown resource which would then initiate the shut down sequence. This resource is represented by <em>shutdown</em> keyword and the requestor would send a POST request to this resource.</p>
+<h4 id="revoke-resource-1">Revoke Resource</h4>
+<p>The resource server also maintains some information about the client, such as their associated exception list. After removing a client from the authorization server, the administrator would also want remove the same client from the resource server.For this, it can use the revoke resource. It is represented by <em>revoke</em> keyword and administrators can send a POST request to this resource to revoke clients.</p>

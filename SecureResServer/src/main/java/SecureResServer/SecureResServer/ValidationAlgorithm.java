@@ -1,6 +1,7 @@
 package SecureResServer.SecureResServer;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.coap.Request;
@@ -18,9 +19,9 @@ public class ValidationAlgorithm
 	}
 	*/
 	
-	public boolean validate(HashMap<String, Object> inCapability, String userID)
+	public boolean validate(Map<String, Object> inCapability, String userID)
 	{
-		HashMap<String, Object> capability = inCapability;
+		Map<String, Object> capability = inCapability;
 		String inHash = (String) capability.get("hash");
 		String sharedKey = HCAPResourceServer.serverSharedKey;
 		
@@ -70,7 +71,7 @@ public class ValidationAlgorithm
 			//Confirm two things with authorization server and get the time to compare for the sessionID
 			//Store the time in sessionTime Map 
 			
-			HashMap<String, Object> toConfirmMap = new HashMap<String, Object>();
+			Map<String, Object> toConfirmMap = new HashMap<String, Object>();
 			toConfirmMap.put("sessionID", sessionID);
 			toConfirmMap.put("tSerial", tSer);
 			
@@ -87,7 +88,7 @@ public class ValidationAlgorithm
 			
 			byte[] getPayloadData = response.getPayload();
 			
-			HashMap<String, Object> getPayloadMap = decodePayload(getPayloadData);
+			Map<String, Object> getPayloadMap = decodePayload(getPayloadData);
 			
 			long timeToStore = Long.parseLong(getPayloadMap.get("timeForSession").toString());
 			HCAPResourceServer.sessionTimeMap.put(sessionID, timeToStore);
@@ -123,7 +124,7 @@ public class ValidationAlgorithm
 		return true;
 	}
 	
-	private HashMap<String, Object> decodePayload(byte[] inData)
+	private Map<String, Object> decodePayload(byte[] inData)
 	{
 		if(HCAPResourceServer.isCBOR)
 		{
@@ -137,7 +138,7 @@ public class ValidationAlgorithm
 		}
 	}
 	
-	private byte[] encodePayload(HashMap<String, Object> inMap)
+	private byte[] encodePayload(Map<String, Object> inMap)
 	{
 		if(HCAPResourceServer.isCBOR)
 		{

@@ -1,6 +1,7 @@
 package SecureResServer.SecureResServer;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapResponse;
@@ -43,16 +44,16 @@ public class CoapValidateResource
 			{
 				//System.out.println("Got something in validation.");
 				byte[] inPayload = exchange.getRequestPayload();
-				HashMap<String, Object> payloadMap = decodePayload(inPayload);
+				Map<String, Object> payloadMap = decodePayload(inPayload);
 				
-				HashMap<String, Object> capability = (HashMap<String, Object>) payloadMap.get("ticket");
+				Map<String, Object> capability = (HashMap<String, Object>) payloadMap.get("ticket");
 				String userID = payloadMap.get("userID").toString();
 				long sessionID = Long.parseLong(capability.get("sessID").toString());
 				
 				ValidationAlgorithm vAl = new ValidationAlgorithm();
 				boolean result = vAl.validate(capability, userID);
 				
-				HashMap<String, Object> replyMap = new HashMap<String, Object>();
+				Map<String, Object> replyMap = new HashMap<String, Object>();
 				
 				if(result)
 				{
@@ -75,7 +76,7 @@ public class CoapValidateResource
 			
 			
 			
-			private HashMap<String, Object> decodePayload(byte[] inData)
+			private Map<String, Object> decodePayload(byte[] inData)
 			{
 				if(HCAPResourceServer.isCBOR)
 				{
@@ -89,7 +90,7 @@ public class CoapValidateResource
 				}
 			}
 			
-			private byte[] encodePayload(HashMap<String, Object> inMap)
+			private byte[] encodePayload(Map<String, Object> inMap)
 			{
 				if(HCAPResourceServer.isCBOR)
 				{

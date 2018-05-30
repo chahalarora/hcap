@@ -1,6 +1,7 @@
 package SecureResServer.SecureResServer;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import ExceptionList.ExceptionList;
 
@@ -23,7 +24,7 @@ public class jsonConverter
 	 * @param map
 	 * @return byte array
 	 */
-	public byte[] convertToJSON(HashMap<String, Object> map)
+	public byte[] convertToJSON(Map<String, Object> map)
 	{
 		byte[] jsonData = null;
 		try

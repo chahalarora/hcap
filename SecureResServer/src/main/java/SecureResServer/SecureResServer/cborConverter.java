@@ -24,7 +24,6 @@ public class cborConverter
 	 * @param map
 	 * @return byte array
 	 */
-	public byte[] convertToCBOR(HashMap<String, Object> map)
 	{
 		byte[] cborData = null;
 		try
@@ -48,9 +47,7 @@ public class cborConverter
 	 * @param inData
 	 * @return map
 	 */
-	public HashMap<String, Object> convertFromCBOR(byte[] inData)
 	{
-		HashMap<String, Object> retMap = null;
 		try
 		{
 			CBORFactory cfac = new CBORFactory();

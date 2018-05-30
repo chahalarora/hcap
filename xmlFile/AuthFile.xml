@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<root>
+	<administrator>
+		<name>Admin1</name>
+	</administrator>
+	
+	<administrator>
+		<name>Admin2</name>
+	</administrator>
+</root>

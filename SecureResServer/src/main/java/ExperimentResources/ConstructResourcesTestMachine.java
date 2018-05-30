@@ -7,11 +7,8 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 
 public class ConstructResourcesTestMachine 
 {
-	public CoapResource[] construct()
 		{
-			CoapResource[] res = new CoapResource[20];
 			
-			for(int i = 0; i < 20; i++)
 			{
 				CoapResource inDemoResource  = new CoapResource("demoResource" + (i+1))
 				{

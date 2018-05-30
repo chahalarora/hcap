@@ -47,11 +47,14 @@ public class HCAPHandleRequest {
 	
 	private HashMap<String, Object> retObj = null;
 	
+<<<<<<< HEAD
 	private HashMap<Integer, Object> translis;
 	private ArrayList<Integer> stlis;
 	private HashMap<String, Object> namesArr;//defs
 	private HashMap<String, Object> recievedNamesArr;
 	private ArrayList<String> stPerms;
+=======
+>>>>>>> master
 	private String name = null;
 	
 	/**
@@ -169,6 +172,7 @@ public class HCAPHandleRequest {
 			ArrayList<Object> permTimeArr = new ArrayList<Object>();
 			ExceptionList templis = lisStack.pop();
 			if(tsCreated > templis.getExTime())
+			//if(tsCreated > templis.getExTime())
 			{
 				//don't add exception to the exObj
 			}
@@ -275,6 +279,7 @@ public class HCAPHandleRequest {
 	 * @return
 	 */
 	public HashMap<String, Object> computeResponse()
+	public Map<String, Object> computeResponse()
 	{
 		if(checkSessionInLock())
 		{
@@ -437,6 +442,7 @@ public class HCAPHandleRequest {
 	 * @return capability as a map.
 	 */
 	private HashMap<String, Object> getLostCapability()
+	private Map<String, Object> getLostCapability()
 	{
 		// check exception list, go upto the point where exTime < tCreated, 
 		// Once you reach that point start creating new capabilities till you reach the start of the exception list.
@@ -600,6 +606,7 @@ public class HCAPHandleRequest {
 	 */
 	public void addExceptionToList(HashMap<String, Object> inObj)
 	{
+<<<<<<< HEAD
 		String addName = null;
 		if(retObj.get("name") != null) //retObj is the capability
 		{
@@ -609,6 +616,15 @@ public class HCAPHandleRequest {
 		ExceptionList ex = exLisMap.get(sessID);
 		//ExceptionList newEx = new ExceptionList(addName, usePerm, currTime, ex); //Lakshs Part which works
 		ExceptionList newEx = new ExceptionList(usePerm, currTime, ex , translis, namesArr);
+=======
+		//String addName = null;
+		/*
+		if(retObj.get("name") != null)
+		{
+			addName = retObj.get("name").toString();
+		}
+		*/
+		
 		exLisMap.put(sessID, newEx);
 		//call print after
 	}

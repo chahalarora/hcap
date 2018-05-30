@@ -14,13 +14,22 @@ public class App
     
     public void demoClient()
     {
+<<<<<<< HEAD
     	String propFileLocation = "/D:/uCalgary/HCAPv1/HCAPCode/PropertiesFiles/Client.properties";
+=======
+    	
+    	
+>>>>>>> master
         ClientBuilder client = new ClientBuilder(propFileLocation);
         
         HashMap<String, Object> capability = null;
         HashMap<String, Object> oldCapability = null;
         
+<<<<<<< HEAD
         // get first capability from the authorization server
+=======
+        
+>>>>>>> master
         if(client.getCapability())
         {
         	capability = client.getTicket();
@@ -47,6 +56,11 @@ public class App
         	System.out.println(capability.toString());
         }
         
+<<<<<<< HEAD
+=======
+       
+        
+>>>>>>> master
         //get a new capability after state update request is issued
         /*
         HashMap<String, Object> updateRequest = capability;
@@ -65,6 +79,9 @@ public class App
         	
         	System.out.println(capability.toString());
         }
+        
+      
+       
         
         if(client.requestAccess(capability, null, "demoResource8"))
         {
