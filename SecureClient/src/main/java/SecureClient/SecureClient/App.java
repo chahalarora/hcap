@@ -17,6 +17,7 @@ public class App
 <<<<<<< HEAD
     	String propFileLocation = "/D:/uCalgary/HCAPv1/HCAPCode/PropertiesFiles/Client.properties";
 =======
+    	//to be taken from command line
     	
     	
 >>>>>>> master

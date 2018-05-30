@@ -45,6 +45,7 @@ public class CoapHcapParentResource
 		CoapResource checkStatus = CoapCheckStatusResource.createResource();
 <<<<<<< HEAD
 =======
+		CoapResource revokeResource = HCAPRevokeResource.createResource();
 >>>>>>> master
 		
 		parentResource.add(validateResource);
@@ -53,6 +54,7 @@ public class CoapHcapParentResource
 		parentResource.add(checkStatus);
 <<<<<<< HEAD
 =======
+		parentResource.add(revokeResource);
 >>>>>>> master
 		
 		return parentResource;
