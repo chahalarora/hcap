@@ -410,7 +410,7 @@ public class HCAPHandleRequest {
 			
 			//assign the compressed list to session ID and add the length of list to baton length map
 			HCAPResourceServer.lisMap.put(sessID, compressedList);
-			HCAPResourceServer.batonLengthMap.put(sessID, bComp.getBatonSize(originalBatonLength));
+			HCAPResourceServer.batonLengthMap.put(sessID, bComp.getBatonSize(HCAPResourceServer.lisMap.get(sessID)));
 			return true;
 		}
 		return false;

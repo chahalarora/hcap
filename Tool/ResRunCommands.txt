@@ -1,0 +1,1 @@
+cd Downloads;ls;cd HCAPCode;cd SecureResServer;ls;mvn -version;mvn compile;mvn package;mvn install assembly:assembly;java -cp target/SecureResServer-0.0.1-SNAPSHOT-jar-with-dependencies.jar SecureResServer.SecureResServer.App
