@@ -1,6 +1,7 @@
 package SecureClient.SecureClient;
 
 import java.util.HashMap;
+import java.util.Stack;
 /**
  * Hello world!
  *
@@ -18,6 +19,7 @@ public class App
     	String propFileLocation = "/D:/uCalgary/HCAPv1/HCAPCode/PropertiesFiles/Client.properties";
 =======
     	//to be taken from command line
+    	String propFileLocation = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\Client.properties";
     	
     	
 >>>>>>> master

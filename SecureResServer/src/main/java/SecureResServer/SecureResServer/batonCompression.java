@@ -1,6 +1,7 @@
 package SecureResServer.SecureResServer;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import ExceptionList.ExceptionList;
 
@@ -52,6 +53,7 @@ public class batonCompression
 	public ExceptionList compress()
 	{
 		//ArrayList<ExceptionList> exStore = new ArrayList<ExceptionList>();
+		Map<String, ExceptionList> lisStore = new HashMap<String, ExceptionList>();
 		
 		while(ex.getEx() != null)
 		{

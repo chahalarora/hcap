@@ -13,6 +13,7 @@ public class App {
 <<<<<<< HEAD
         String propFileLocation  ="/D:/uCalgary/HCAPv1/HCAPCode/PropertiesFiles/AuthServer.properties";
 =======
+        String propFileLocation  = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\AuthServer.properties";
         
 >>>>>>> master
         //read experiment number and machine number
@@ -43,8 +44,11 @@ public class App {
     	//Test Machine
         
     	
+    	server.addClientStateMachine("C=CA,L=Ottawa,O=Eclipse IoT,OU=Californium,CN=cf-client", new InitStateMachine(), 0);
+        server.addResourceServer("127.0.0.1:8080", "myKey");
         server.addToStateRSMap("St1", "127.0.0.1:8080");
         
+        serverObj = server.startHCAPServer();
         
 >>>>>>> master
         //testCaseCodeNoSession();
