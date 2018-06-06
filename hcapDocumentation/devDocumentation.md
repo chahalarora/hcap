@@ -190,7 +190,7 @@ The following parameters are to be set in ResServer.properties file.
 
 * **updateRequestCounter**: This represents the soft GC threshold in HCAP. For eg: 200 means that soft GC will occur after every 400 requests to the resource server.
 
-* **hard GC Threshold**: This represents the hard GC threshhold in HCAP. For eg: 400 means that hard GC will occur after ever 400 requests to the resource server.
+* **hard GC Threshold**: This represents the hard GC threshold in HCAP. For eg: 400 means that hard GC will occur after ever 400 requests to the resource server.
 
 * **isCBOR**: Set this as true if CBOR is to be used as data transfer format or false to used JSON as data transfer format.
 
@@ -226,6 +226,24 @@ Seperate javadocs are available for the authorization server, resource server an
 **Client:** 
 _'HCAPDevTeam/hcap/tree/master/SecureClient/doc'_
 
-For each of the above componets, _**index.html**_ acts as an entry point to the API documentation.
+For each of the above components, _**index.html**_ acts as an entry point to the API documentation.
 
+### How to run the testing framework
+A separate testing framework has been created for this implementation of HCAP.
+This framework or tool is in the **_tools_** subdirectory of the main directory.
+This testing tool makes use of the XML files in the **_TestingFrameworkXMLFiles_** subdirectory in the main directory.
+There are a number of XML files defined in that subdirectory which are used to set up the
+Automaton and the servers.
 
+Follow the following steps in order to run the testing framework:
+
+* The first task is to edit the **AuthRunCommands.txt** and the **ResRunCommands.txt** in the **Tool**
+subdirectory of the main directory.
+* Currently this is a string of commands where the first few commands is to change directory.
+What you will need to do is edit the first change directory to the path of where your **SecureAuthServer** resides.
+* Do this for both the **AuthRunCommands.txt** and **ResRunCommands.txt**.
+* The next steps assumes _maven_ is installed in your machine and a key pair is set up with local machine and the remote server.
+* **WARNING:** The next steps are done assuming the script is run from a **WINDOWS** environment to a remote **Linux** environment.
+* Assuming python is installed in your local machine run the ssh_auth.py with the correct parameters.
+* Also run ssh_res.py with the correct parameters.
+* Run the client code from the local machine to get results in the **TestLog.txt** file of the Client subdirectory.

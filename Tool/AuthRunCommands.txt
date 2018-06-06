@@ -1,1 +1,1 @@
-cd Downloads;ls;cd HCAPCode;cd SecureAuthServer;ls;mvn -version;mvn compile;mvn package;mvn install assembly:assembly;java -cp target/SecureAuthServer-0.0.1-SNAPSHOT-jar-with-dependencies.jar SecureAuthServer.SecureAuthServer.App
+cd Downloads;cd HCAPCode;cd SecureAuthServer;mvn -version;mvn compile;mvn package;mvn install assembly:assembly;java -cp target/SecureAuthServer-0.0.1-SNAPSHOT-jar-with-dependencies.jar SecureAuthServer.SecureAuthServer.AppTest
