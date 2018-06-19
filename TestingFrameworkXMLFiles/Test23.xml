@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+<root>
+<!-- Parameters for Authorization Server -->
+	<AuthServer>
+		<host> </host>
+		<port> </port>
+		<dtlsParams> 
+			
+			<trustStoreLoc> </trustStoreLoc>
+			<trustStorePass> </trustStorePass>
+			
+			<keystoreLoc> </keystoreLoc>
+			<keystorePass> </keystorePass>
+		
+		</dtlsParams>
+		<encoding>cbor</encoding>
+		
+		
+		<ResourceServerKey>
+			<entry resourceServer="127.0.0.1:8080" key="myKey"></entry>
+		</ResourceServerKey>
+		
+		<StateToResServer>
+			<entry state="St1" server="127.0.0.1:8080"></entry>
+		</StateToResServer>
+		
+		
+		<clients>
+			<client>
+				<name>C=CA,L=Ottawa,O=Eclipse IoT,OU=Californium,CN=cf-client</name>
+				<propagation>-1</propagation>
+				
+				<SA> 
+					<initialState>St1</initialState>
+					<states>
+						<state name="St1">
+							<stPerms>
+							</stPerms>
+					
+							<transPerms> 
+								<perm>1</perm>
+								<perm>5</perm>
+								<perm>6</perm>
+							</transPerms>
+						</state>
+
+						<state name="St2">
+							<stPerms> 
+							</stPerms>
+					
+							<transPerms> 
+								<perm>2</perm>
+								<perm>4</perm>
+								<perm>8</perm>
+							</transPerms>
+						</state>
+
+						<state name="St3">
+							<stPerms> 
+							</stPerms>
+					
+							<transPerms> 
+								<perm>9</perm>
+								<perm>6</perm>
+								<perm>11</perm>
+							</transPerms>
+						</state>
+
+						<state name="St4">
+							<stPerms> 
+							</stPerms>
+					
+							<transPerms> 
+								<perm>3</perm>
+								<perm>7</perm>
+								<perm>10</perm>
+							</transPerms>
+						</state>
+						
+					</states>
+			
+					<transitions>
+						<trans perm="1">
+							<from>St1</from>
+							<to>St2</to>
+						</trans>
+				
+						<trans perm="2">
+							<from>St2</from>
+							<to>St4</to>
+						</trans>
+
+						<trans perm="3">
+							<from>St4</from>
+							<to>St2</to>
+						</trans>
+						<trans perm="4">
+							<from>St2</from>
+							<to>St1</to>
+						</trans>
+						<trans perm="5">
+							<from>St1</from>
+							<to>St3</to>
+						</trans>
+						<trans perm="6">
+							<from>St3</from>
+							<to>St1</to>
+						</trans>
+
+						<trans perm="7">
+							<from>St4</from>
+							<to>St1</to>
+						</trans>
+
+						<trans perm="8">
+							<from>St2</from>
+							<to>St3</to>
+						</trans>
+						<trans perm="9">
+							<from>St3</from>
+							<to>St2</to>
+						</trans>
+						<trans perm="10">
+							<from>St4</from>
+							<to>St3</to>
+						</trans>
+						<trans perm="11">
+							<from>St3</from>
+							<to>St4</to>
+						</trans>
+
+						
+					</transitions>
+				</SA>
+			</client>
+		</clients>
+		
+	</AuthServer>
+	
+<!-- Parameters for Resource Server -->		
+	<ResServer>
+		<host> </host>
+		<port> </port>
+		<hardGC> </hardGC>
+		<softGC> </softGC>
+		<dtlsParams> 
+			
+			<trustStoreLoc> </trustStoreLoc>
+			<trustStorePass> </trustStorePass>
+			
+			<keystoreLoc> </keystoreLoc>
+			<keystorePass> </keystorePass>
+		
+		</dtlsParams>
+		<encoding>cbor</encoding>
+		
+		<resources>
+			<resource>demoResource1</resource>
+			<resource>demoResource2</resource>
+			<resource>demoResource3</resource>
+			<resource>demoResource4</resource>
+			<resource>demoResource5</resource>
+			<resource>demoResource6</resource>
+			<resource>demoResource7</resource>
+			<resource>demoResource8</resource>
+			<resource>demoResource9</resource>
+			<resource>demoResource10</resource>
+			<resource>demoResource11</resource>
+		</resources>
+		
+		<permMap>
+			<entry method="POST" resource="demoResource1" perm="1" > </entry>
+			<entry method="POST" resource="demoResource2" perm="2" > </entry>
+			<entry method="POST" resource="demoResource3" perm="3" > </entry>
+			<entry method="POST" resource="demoResource4" perm="4" > </entry>
+			<entry method="POST" resource="demoResource5" perm="5" > </entry>
+			<entry method="POST" resource="demoResource6" perm="6" > </entry>
+			<entry method="POST" resource="demoResource7" perm="7" > </entry>
+			<entry method="POST" resource="demoResource8" perm="8" > </entry>
+			<entry method="POST" resource="demoResource9" perm="9" > </entry>
+			<entry method="POST" resource="demoResource10" perm="10" > </entry>
+			<entry method="POST" resource="demoResource11" perm="11" > </entry>
+			
+		</permMap>
+	</ResServer>
+
+<!-- Parameters for Client -->
+	<Client>
+		<authServerAddress> </authServerAddress>
+		<resServerAddress> </resServerAddress>
+		
+		<dtlsParams> 
+			
+			<trustStoreLoc> </trustStoreLoc>
+			<trustStorePass> </trustStorePass>
+			
+			<keystoreLoc> </keystoreLoc>
+			<keystorePass> </keystorePass>
+		
+		</dtlsParams>
+		<encoding>cbor</encoding>
+		
+		<clientRequests>
+			<Test>
+				<resource>demoResource1</resource>
+				<resource>demoResource2</resource>
+				<resource>demoResource1</resource>
+			</Test>
+			<Test>
+				<resource>demoResource1</resource>
+				<resource>demoResource2</resource>
+			</Test>
+
+			<Test>
+				<resource>demoResource1</resource>
+				<resource>demoResource2</resource>
+				<resource>demoResource3</resource>
+				<resource>demoResource4</resource>
+			</Test>
+
+			<Test>
+				<resource>demoResource1</resource>
+				<resource>demoResource2</resource>
+				<resource>demoResource1</resource>
+				<resource>demoResource3</resource>
+			</Test>
+
+			<Test>
+				<resource>demoResource1</resource>
+				<resource>demoResource2</resource>
+				<resource>demoResource4</resource>
+				<resource>demoResource3</resource>
+			</Test>
+			<Test>
+				<resource>demoResource1</resource>
+				<resource>demoResource2</resource>
+				<resource>demoResource4</resource>
+				<resource>demoResource3</resource>
+				<resource>demoResource2</resource>
+				<resource>demoResource4</resource>
+				<resource>demoResource3</resource>
+			</Test>
+		</clientRequests>
+	
+	</Client>
+</root>

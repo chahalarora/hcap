@@ -49,19 +49,11 @@ public class HCAPHandleRequest {
 	
 	private Map<String, Object> retObj = null;
 	
-<<<<<<< HEAD
-	private HashMap<Integer, Object> translis;
-	private ArrayList<Integer> stlis;
-	private HashMap<String, Object> namesArr;//defs
-	private HashMap<String, Object> recievedNamesArr;
-	private ArrayList<String> stPerms;
-=======
 	private Map<Integer, Object> translis;
 	private List<Integer> stlis;
 	private Map<String, Object> namesArr;
 	private Map<String, Object> recievedNamesArr;
 	private List<String> stPerms;
->>>>>>> master
 	private String name = null;
 	
 	/**
@@ -77,8 +69,8 @@ public class HCAPHandleRequest {
 		userID = inUserID;
 		stPerms = new ArrayList<String> ();
 
-		exLisMap = inMap; //mapping sessid to ex list
-		jObj = inObj; //capability
+		exLisMap = inMap;
+		jObj = inObj;
 		
 		//read components from capability
 		usePerm = inPermID;
@@ -170,10 +162,7 @@ public class HCAPHandleRequest {
 		
 		while(exlis != null)
 		{
-			if(exlis.getPerm() != 0)
-			{
-				lisStack.add(exlis);
-			}
+			lisStack.add(exlis);
 			exlis = exlis.getEx();
 		}
 		
@@ -181,8 +170,7 @@ public class HCAPHandleRequest {
 		{
 			List<Object> permTimeArr = new ArrayList<Object>();
 			ExceptionList templis = lisStack.pop();
-			//if(tsCreated > templis.getExTime())
-			if(HCAPResourceServer.lastGCTime > templis.getExTime())
+			if(tsCreated > templis.getExTime())
 			{
 				//don't add exception to the exObj
 			}
@@ -310,7 +298,6 @@ public class HCAPHandleRequest {
 			{
 				currTime = System.currentTimeMillis();
 				
-				addExceptionToList();
 				//check if namesArr has further propagation
 				if(!checkNamesArrProp())
 				{
@@ -325,7 +312,9 @@ public class HCAPHandleRequest {
 					//return retObj;
 				}
 				
+				addExceptionToList(retObj);
 				
+				//System.out.println("Its a transitioning request.");
 				
 				//add baton length to map
 				if(HCAPResourceServer.batonLengthMap.containsKey(sessID))
@@ -423,7 +412,7 @@ public class HCAPHandleRequest {
 			
 			//assign the compressed list to session ID and add the length of list to baton length map
 			HCAPResourceServer.lisMap.put(sessID, compressedList);
-			HCAPResourceServer.batonLengthMap.put(sessID, bComp.getBatonSize(HCAPResourceServer.lisMap.get(sessID)));
+			HCAPResourceServer.batonLengthMap.put(sessID, bComp.getBatonSize(originalBatonLength));
 			return true;
 		}
 		return false;
@@ -611,32 +600,17 @@ public class HCAPHandleRequest {
 	 * This method is used to add a permission to the exception list of resource server.
 	 * 
 	 */
-	public void addExceptionToList()
+	public void addExceptionToList(Map<String, Object> retObj2)
 	{
-<<<<<<< HEAD
 		String addName = null;
-		if(retObj.get("name") != null) //retObj is the capability
-		{
-			addName = retObj.get("name").toString();
-		}
-		//call print before new exception
-		ExceptionList ex = exLisMap.get(sessID);
-		//ExceptionList newEx = new ExceptionList(addName, usePerm, currTime, ex); //Lakshs Part which works
-		ExceptionList newEx = new ExceptionList(usePerm, currTime, ex , translis, namesArr);
-=======
-		//String addName = null;
-		/*
 		if(retObj.get("name") != null)
 		{
 			addName = retObj.get("name").toString();
 		}
-		*/
 		
 		ExceptionList ex = exLisMap.get(sessID);
-		ExceptionList newEx = new ExceptionList(name, usePerm, currTime, ex);
->>>>>>> master
+		ExceptionList newEx = new ExceptionList(addName, usePerm, currTime, ex);
 		exLisMap.put(sessID, newEx);
-		//call print after
 	}
 	
 	/**

@@ -12,36 +12,24 @@ public class App {
 	
 	public static void main(String[] args)
     {
-<<<<<<< HEAD
-		String propFileLocation = "/D:/uCalgary/HCAPv1/HCAPCode/PropertiesFiles/ResServer.properties";
-=======
-		String propFileLocation = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\ResServer.properties";
->>>>>>> master
-    	
+		//String propFileLocation = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\ResServer.properties";
+		String propFileLocation  = "/D:/uCalgary/HCAP/hcap/delete/hcap-master/PropertiesFiles/ResServer.properties";
+		
     	CoapResource[] resT = null;
     	HashMap<Pair, Long> inPermMap = null;
-    	//to be taken as user input
-    	inPermMap = new App().createMap(12);
-    	server = new HCAPResourceServer(propFileLocation, inPermMap);
     	
     	System.out.println("Demo resources initiated for resource server.");
+    	
     	//Construct resources for test machine
     	ConstructResourcesTestMachine resTest = new ConstructResourcesTestMachine();
-<<<<<<< HEAD
-    	resT =  resTest.construct();
-    	
+    	resT =  resTest.construct(20);    	
     	
     	//to be taken as user input
-    	inPermMap = new App_Ex().createMap(12);    
-    	
+    	inPermMap = new App().createMap(12);    	
     	
     	server = new HCAPResourceServer(propFileLocation, inPermMap);
     	
-=======
-    	resT =  resTest.construct(20);
->>>>>>> master
     	server.addResourcesToServer(resT);
-    	
     	
     	CoapResource parentRes = CoapHcapParentResource.createResource();
     	server.addResourcesToServer(parentRes);
@@ -66,8 +54,6 @@ public class App {
 		in.close();
 		*/
     }
-<<<<<<< HEAD
-=======
 	
 	public HashMap<Pair, Long> createMap(int machineNumber)
 	{
@@ -82,6 +68,5 @@ public class App {
 		}
 		return inPermMap;
 	}
->>>>>>> master
 
 }

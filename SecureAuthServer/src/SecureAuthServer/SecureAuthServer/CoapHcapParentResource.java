@@ -45,11 +45,8 @@ public class CoapHcapParentResource
 		CoapResource getConfirmResource = CoapConfirmationResource.createResource();
 		CoapResource shutdown = CoapShutdownResource.createResource();
 		CoapResource checkStatus = CoapCheckStatusResource.createResource();
-<<<<<<< HEAD
-=======
 		CoapResource getRevokeResource = CoapRevokeResource.createResource();
->>>>>>> master
-		
+		CoapResource getAdminResource = CoapAdminResource.createResource();
 		
 		//added reset resource for Ex3 Part1
 		CoapResource getResetResource = CoapResetResource.createResource();
@@ -63,10 +60,8 @@ public class CoapHcapParentResource
 		parentResource.add(getConfirmResource);
 		parentResource.add(shutdown);
 		parentResource.add(checkStatus);
-<<<<<<< HEAD
-=======
 		parentResource.add(getRevokeResource);
->>>>>>> master
+		parentResource.add(getAdminResource);
 		
 		return parentResource;
 	}

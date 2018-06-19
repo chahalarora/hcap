@@ -25,9 +25,9 @@ public class AppTest
     public void demoClient()
     {
     	//to be taken from command line
-    	String propFileLocation = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\Client.properties";
-    	String xmlFileLocation = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\TestingFrameworkXMLFiles\\Test1.xml";
-    	
+    	String propFileLocation  = "/D:/uCalgary/HCAP/hcap/delete/hcap-master/PropertiesFiles/Client.properties";
+        String xmlFileLocation = "/D:/uCalgary/HCAP/hcap/delete/hcap-master/TestingFrameworkXMLFiles/Test1.xml";
+        
     	
     	//get number of tests to be run
 

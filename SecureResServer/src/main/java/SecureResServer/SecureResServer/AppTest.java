@@ -28,9 +28,9 @@ public class AppTest {
 	
 	public static void main(String[] args)
     {
-		String propFileLocation = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\ResServer.properties";
-		String xmlFileLocation = "C:\\Users\\lakshya.tandon\\Desktop\\HCAPTestingFramework\\Test1.xml";
-    	
+		String propFileLocation  = "/D:/uCalgary/HCAP/hcap/delete/hcap-master/PropertiesFiles/ResServer.properties";
+        String xmlFileLocation = "/D:/uCalgary/HCAP/hcap/delete/hcap-master/TestingFrameworkXMLFiles/Test1.xml";
+        
     	CoapResource[] resT = null;
     	HashMap<Pair, Long> inPermMap = null;
     	

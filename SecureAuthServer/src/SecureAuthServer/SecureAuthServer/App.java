@@ -2,6 +2,8 @@ package SecureAuthServer.SecureAuthServer;
 
 import StateMachines.InitStateMachine;
 
+//Testing sub
+
 public class App {
 	
 	
@@ -10,12 +12,8 @@ public class App {
 	
 	public static void main(String[] args )
     {
-<<<<<<< HEAD
-        String propFileLocation  ="/D:/uCalgary/HCAPv1/HCAPCode/PropertiesFiles/AuthServer.properties";
-=======
-        String propFileLocation  = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\AuthServer.properties";
-        
->>>>>>> master
+        //String propFileLocation  = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\AuthServer.properties";
+		 String propFileLocation  = "/D:/uCalgary/HCAP/hcap/delete/hcap-master/PropertiesFiles/AuthServer.properties";
         //read experiment number and machine number
         //new App_Ex().readFile(propFileLocation);
         
@@ -23,34 +21,18 @@ public class App {
         //only pass properties file's location as parameter and rest everything can be read from properties file.
         //METHOD TO START SERVER
         server = new HCAPAuthorizationServer(propFileLocation);
-<<<<<<< HEAD
         
         //String rs1 = "127.0.0.1:8080";
     	//String rs2 = "127.0.0.1:8081";
     	//Test Machine
         
     	
-    	server.addClientStateMachine("C=CA,L=Ottawa,O=Eclipse IoT,OU=Californium,CN=cf-client", new InitStateMachine(), -1);
-        server.addResourceServer("127.0.0.1:8080", "myKey");
-        server.addToStateRSMap("St1", "127.0.0.1:8080");
-        
-       
-        serverObj = server.startHCAPServer();
-        
-=======
-        
-        //String rs1 = "127.0.0.1:8080";
-    	//String rs2 = "127.0.0.1:8081";
-    	//Test Machine
-        
-    	
-    	server.addClientStateMachine("C=CA,L=Ottawa,O=Eclipse IoT,OU=Californium,CN=cf-client", new InitStateMachine(), 0);
+    	server.addClientStateMachine("C=CA,L=Ottawa,O=Eclipse IoT,OU=Californium,CN=cf-admin", new InitStateMachine(), -1);
         server.addResourceServer("127.0.0.1:8080", "myKey");
         server.addToStateRSMap("St1", "127.0.0.1:8080");
         
         serverObj = server.startHCAPServer();
         
->>>>>>> master
         //testCaseCodeNoSession();
         //METHOD TO STOP SERVER
         /*

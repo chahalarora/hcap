@@ -5,8 +5,16 @@ import org.eclipse.californium.core.coap.CoAP.ResponseCode;
 import org.eclipse.californium.core.coap.Response;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 
+/*
+ * This class creates the CoapResources which act in place of the actual IoT devices.
+ * The only one method here takes in the number of IoT devices for this specific resource server and creates "demoResource" followed by a number.
+ * */
 public class ConstructResourcesTestMachine 
 {
+	/*
+	 * The number in the argument is the number of resources to be made. 
+	 * The array contains all the CoapResources which may be accessed by the handlePost method. 
+	 * */
 	public CoapResource[] construct(int numResources)
 		{
 			CoapResource[] res = new CoapResource[numResources];

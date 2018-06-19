@@ -131,31 +131,6 @@
 						</trans>
 					</transitions>
 				</SA>
-				
-				<FragmentExceptions>
-					<CustomFragsForStates>
-						<CurrentState name="">
-							<AllowedPermission name="">
-								<StateReached name="">
-									<AllowedPermission name="">
-										<StateReached name=""></StateReached>
-									</AllowedPermission>
-								</StateReached>
-							</AllowedPermission>
-						</CurrentState>
-					
-						<CurrentState name="">
-					
-						</CurrentState>
-					
-					</CustomFragsForStates>
-					
-					
-					<ReachableStatesFromCurrentStates>
-					
-					</ReachableStatesFromCurrentStates>
-				</FragmentExceptions>
-				
 			</client>
 		</clients>
 		
@@ -235,11 +210,42 @@
 			<Test>
 				<resource>demoResource3</resource>
 				<resource>demoResource6</resource>
-				<resource>demoResource8</resource>
+				<resource>demoResource3</resource>
 			</Test>
 			<Test>
 				<resource>demoResource3</resource>
 				<resource>demoResource7</resource>
+				<resource>demoResource8</resource>
+			</Test>
+			<Test>
+				<resource>demoResource1</resource>
+				<resource>demoResource2</resource>
+				<resource>demoResource1</resource>
+				<resource>demoResource12</resource>
+				<resource>demoResource13</resource>
+			</Test>
+			<Test>
+				<resource>demoResource3</resource>
+				<resource>demoResource4</resource>
+				<resource>demoResource5</resource>
+				<resource>demoResource4</resource>
+				<resource>demoResource6</resource>
+				<resource>demoResource8</resource>
+				<resource>demoResource9</resource>
+			</Test>
+			<Test>
+				<resource>demoResource3</resource>
+				<resource>demoResource4</resource>
+				<resource>demoResource5</resource>
+				<resource>demoResource4</resource>
+				<resource>demoResource6</resource>
+				<resource>demoResource8</resource>
+				<resource>demoResource9</resource>
+				<resource>demoResource9</resource>
+				<resource>demoResource9</resource>
+				<resource>demoResource9</resource>
+				<resource>demoResource9</resource>
+				<resource>demoResource10</resource>
 				<resource>demoResource8</resource>
 			</Test>
 		</clientRequests>

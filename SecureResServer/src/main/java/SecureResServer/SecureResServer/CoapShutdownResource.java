@@ -1,9 +1,5 @@
 package SecureResServer.SecureResServer;
 
-<<<<<<< HEAD
-import java.util.HashMap;
-=======
->>>>>>> master
 
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;

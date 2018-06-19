@@ -20,8 +20,8 @@ public class AppTest {
 	
 	public static void main(String[] args )
     {
-        String propFileLocation  = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\AuthServer.properties";
-        String xmlFileLocation = "C:\\Users\\lakshya.tandon\\Desktop\\HCAPTestingFramework\\Test1.xml";
+        String propFileLocation  = "/D:/uCalgary/HCAP/hcap/delete/hcap-master/PropertiesFiles/AuthServer.properties";
+        String xmlFileLocation = "/D:/uCalgary/HCAP/hcap/delete/hcap-master/TestingFrameworkXMLFiles/Test1.xml";
         
         //read experiment number and machine number
         //new App_Ex().readFile(propFileLocation);

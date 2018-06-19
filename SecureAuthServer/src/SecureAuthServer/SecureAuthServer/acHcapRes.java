@@ -36,7 +36,7 @@ public class acHcapRes {
 	 * @param inName the name which is to be validated against.
 	 * @return true if authorization check passes, false otherwise.
 	 */
-	public boolean checkAuthorization(String inName) {
+	public boolean checkAuthorization(String inName) {	
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

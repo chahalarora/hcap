@@ -1,3 +1,6 @@
-Successfully executed test: Test 1, from file: C:\Users\lakshya.tandon\Documents\GitHub\hcap\TestingFrameworkXMLFiles\Test1.xml
-Failed Test: Test 2, when requesting access to: demoResource7, from file: C:\Users\lakshya.tandon\Documents\GitHub\hcap\TestingFrameworkXMLFiles\Test1.xml
+Failed Test: Test 1, when requesting access to: demoResource3, from file: /D:/uCalgary/HCAP/hcap/delete/hcap-master/TestingFrameworkXMLFiles/Test1.xml
+Failed Test: Test 2, when requesting access to: demoResource7, from file: /D:/uCalgary/HCAP/hcap/delete/hcap-master/TestingFrameworkXMLFiles/Test1.xml
+Failed Test: Test 3, when requesting access to: demoResource1, from file: /D:/uCalgary/HCAP/hcap/delete/hcap-master/TestingFrameworkXMLFiles/Test1.xml
+Failed Test: Test 4, when requesting access to: demoResource4, from file: /D:/uCalgary/HCAP/hcap/delete/hcap-master/TestingFrameworkXMLFiles/Test1.xml
+Failed Test: Test 5, when requesting access to: demoResource10, from file: /D:/uCalgary/HCAP/hcap/delete/hcap-master/TestingFrameworkXMLFiles/Test1.xml
 

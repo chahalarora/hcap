@@ -38,13 +38,13 @@ This section mentions the installation procedure of tools required to compile an
 Within the HCAP project, one would find the following folders.
 
 ### KeyStores
-In this the user would find two files. trustStore.jks represents the trust store while keyStore.jks represents the key store used in configuring HCAP servers and clients. These stores are used by the scandium library for DTLS authentication.
+In this the user would find two files. trustStore.jks represents the trust store while keyStore.jks represents the key store used in configuring HCAP servers and clients.
 
 ### PropertiesFiles
-This folder contains the properties files for authorization server, resource server and the client. These properties files have some parameters used to configure the client and the servers.
+This folder contains the properties files for authorization server, resource server and the client.
 
 ### SecureAuthServer
-This folder contains the following sub folders.
+This contains the following important sub folders.
 
 #### doc
 This folder contains the javadoc for authorization server code.
@@ -58,12 +58,14 @@ It contains the data structure used for storing the exception list.
 2. SecureAuthServer/SecureAuthServer: It contains the actual HCAP Authorization server code.
 
 3. StateMachines: 
-It contains some demo state machines encoded as java class files.
+It contains some demo state machines encoded as java code.
 
 
-Apart from the above folders, SecureAuthServer contains important files such as Californium.properties and pom.xml.
 
-_**Californium.properties**_ file is used by the californium library to configure the calfornium CoAP servers. 
+
+Apart from the above folders, it SecureAuthServer contains important files such as Californium.properties and pom.xml.
+
+_**Californium.properties**_ file is used to configure the calfornium CoAP servers. 
 
 _**pom.xml**_ acts as the maven configuration file for the project. It contains all the dependencies of the project.
 
@@ -80,7 +82,7 @@ It contains the following sub folders.
 
 2. SecureResServer/SecureResServer: It contains the actual resource server code.
 
-3. ExperimentResources: It contains the code for some demo resources which can be added to the resource server. Developers wanting to write there own resources can refer to some sample files in this folder to get a head start.
+3. ExperimentResources: It contains the code for some demo resources which can be attached to the resource server.
 
 #### src/test/java/SecureResServer/SecureResServer
 This folder contains some tests for the resource server.
@@ -88,7 +90,7 @@ This folder contains some tests for the resource server.
 
 Apart from the above folders, it SecureResServer contains important files such as Californium.properties and pom.xml.
 
-_**Californium.properties**_ file is used by the californium library to configure the calfornium CoAP servers. 
+_**Californium.properties**_ file is used to configure the calfornium CoAP servers. 
 
 _**pom.xml**_ acts as the maven configuration file for the project. It contains all the dependencies of the project.
 
@@ -106,13 +108,13 @@ This folder contains some tests for the client.
 
 Apart from the above folders, it SecureClient contains important files such as Californium.properties and pom.xml.
 
-_**Californium.properties**_ file is used by the californium library to configure the calfornium CoAP clients. 
+_**Californium.properties**_ file is used to configure the calfornium CoAP servers. 
 
 _**pom.xml**_ acts as the maven configuration file for the project. It contains all the dependencies of the project.
 
 ## How to build
 ### Compile
-Go the directory containing the code for a component (authorization server, resource server or the client) you want to compile. Run the following commands.
+Go the directory containing the code for component (authorization server, resource server or the client) you want to compile. Run the following commands.
 
 >mvn clean
 
@@ -159,7 +161,7 @@ Properties files in HCAP act as configuration files for each of the HCAP compone
 ### Authorization Server Properties File
 The following parameters are to be set in AuthServer.properties file.
 
-* **isCBOR**: Set this as true if CBOR is to be used as data transfer format or false to used JSON as data transfer format.
+* **isCBOR**: Set this as true if CBOR is to be used as data transfer format and false to used JSON as data transfer format.
 
 * **trustStoreLocation**: Specify the path of trust store used.
 
@@ -190,9 +192,9 @@ The following parameters are to be set in ResServer.properties file.
 
 * **updateRequestCounter**: This represents the soft GC threshold in HCAP. For eg: 200 means that soft GC will occur after every 400 requests to the resource server.
 
-* **hard GC Threshold**: This represents the hard GC threshold in HCAP. For eg: 400 means that hard GC will occur after ever 400 requests to the resource server.
+* **hard GC Threshold**: This represents the hard GC threshhold in HCAP. For eg: 400 means that hard GC will occur after ever 400 requests to the resource server.
 
-* **isCBOR**: Set this as true if CBOR is to be used as data transfer format or false to used JSON as data transfer format.
+* **isCBOR**: Set this as true if CBOR is to be used as data transfer format and false to used JSON as data transfer format.
 
 * **sharedSecret**: Specify this to add a shared secret shared between authorization server and resource server.
 
@@ -226,24 +228,6 @@ Seperate javadocs are available for the authorization server, resource server an
 **Client:** 
 _'HCAPDevTeam/hcap/tree/master/SecureClient/doc'_
 
-For each of the above components, _**index.html**_ acts as an entry point to the API documentation.
+For each of the above componets, _**index.html**_ acts as an entry point to the API documentation.
 
-### How to run the testing framework
-A separate testing framework has been created for this implementation of HCAP.
-This framework or tool is in the **_tools_** subdirectory of the main directory.
-This testing tool makes use of the XML files in the **_TestingFrameworkXMLFiles_** subdirectory in the main directory.
-There are a number of XML files defined in that subdirectory which are used to set up the
-Automaton and the servers.
 
-Follow the following steps in order to run the testing framework:
-
-* The first task is to edit the **AuthRunCommands.txt** and the **ResRunCommands.txt** in the **Tool**
-subdirectory of the main directory.
-* Currently this is a string of commands where the first few commands is to change directory.
-What you will need to do is edit the first change directory to the path of where your **SecureAuthServer** resides.
-* Do this for both the **AuthRunCommands.txt** and **ResRunCommands.txt**.
-* The next steps assumes _maven_ is installed in your machine and a key pair is set up with local machine and the remote server.
-* **WARNING:** The next steps are done assuming the script is run from a **WINDOWS** environment to a remote **Linux** environment.
-* Assuming python is installed in your local machine run the ssh_auth.py with the correct parameters.
-* Also run ssh_res.py with the correct parameters.
-* Run the client code from the local machine to get results in the **TestLog.txt** file of the Client subdirectory.
