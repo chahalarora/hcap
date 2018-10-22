@@ -12,7 +12,7 @@ public class App {
 	
 	public static void main(String[] args)
     {
-		String propFileLocation = "/D:/uCalgary/HCAPv1/HCAPCode/PropertiesFiles/ResServer.properties";
+		String propFileLocation = "/home/chahal/CourseWork/Fall2018/CPSC-626/Project/HCAP/hcap/PropertiesFiles/ResServer.properties";
     	
     	CoapResource[] resT = null;
     	HashMap<Pair, Long> inPermMap = null;

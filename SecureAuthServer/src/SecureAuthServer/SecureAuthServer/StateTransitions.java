@@ -15,8 +15,6 @@ public class StateTransitions
 { 
 	//private long sessionID; 
 	private HashMap<Integer, HashMap<String,String>> transitionsMap = new HashMap<Integer, HashMap<String,String>>();	
-	private Map<Integer , Set> conditionsMap = new HashMap<Integer , Set>();
-	
 	/**
 	 * This method is used to add state transitions for a particular state.
 	 * 
@@ -50,32 +48,5 @@ public class StateTransitions
 		return retMap;
 	}
 	
-	/*
-	 * This method is used to add the conditions as "Strings" to the security automaton.
-	 * The set of conditions need to be a set.
-	 * 
-	 * */
-	public void addConditionsToTransitions(Integer state, String condition) {
-		Set<String> previousSet;
-		if(conditionsMap.containsKey(state)) {
-			previousSet = conditionsMap.get(state);
-			previousSet.add(condition);
-			conditionsMap.put(state,previousSet);
-		}
-		else {
-			previousSet = new HashSet<String>();
-			previousSet.add(condition);
-			conditionsMap.put(state, previousSet);
-		}
-		//return true;
-		
-	}
 	
-	public Map<Integer , Set> getConditions(){
-		return conditionsMap;
-	}
-	
-	public Set<String> getStateConditions(Long permission){
-		return conditionsMap.get(permission);
-	}
 }

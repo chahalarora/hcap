@@ -14,7 +14,7 @@ public class App
     
     public void demoClient()
     {
-    	String propFileLocation = "/D:/uCalgary/HCAPv1/HCAPCode/PropertiesFiles/Client.properties";
+    	String propFileLocation = "/home/chahal/CourseWork/Fall2018/CPSC-626/Project/HCAP/hcap/PropertiesFiles/Client.properties";
         ClientBuilder client = new ClientBuilder(propFileLocation);
         
         HashMap<String, Object> capability = null;
