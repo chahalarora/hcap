@@ -4,8 +4,6 @@ package SecureResServer.SecureResServer;
 import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.HashMap;
-import java.util.Map;
-
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP.Code;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;
@@ -27,9 +25,9 @@ import org.eclipse.californium.core.server.resources.Resource;
 public class HCAPMessageDeliverer implements MessageDeliverer
 {
 	private Resource root;
-	private Map<Pair, Long> referenceMap; 			//to get the permissionID from pair
+	private HashMap<Pair, Long> referenceMap; 			//to get the permissionID from pair
 	private MessageDeliverer extendedDeliverer = null;
-	private Map<String, Object> newTicket;
+	private HashMap<String, Object> newTicket;
 	
 	/**
 	 * Creates a new instance of HCAPMessageDeliverer using the default delivery method.
@@ -37,7 +35,7 @@ public class HCAPMessageDeliverer implements MessageDeliverer
 	 * @param inRoot
 	 * @param inReferenceMap
 	 */
-	public HCAPMessageDeliverer(Resource inRoot, Map<Pair, Long> inReferenceMap)
+	public HCAPMessageDeliverer(Resource inRoot, HashMap<Pair, Long> inReferenceMap)
 	{
 		root = inRoot;
 		referenceMap = inReferenceMap;
@@ -53,7 +51,7 @@ public class HCAPMessageDeliverer implements MessageDeliverer
 	 * @param inDeliverer
 	 * @param inReferenceMap
 	 */
-	public HCAPMessageDeliverer(Resource inRoot, MessageDeliverer inDeliverer, Map<Pair, Long> inReferenceMap)
+	public HCAPMessageDeliverer(Resource inRoot, MessageDeliverer inDeliverer, HashMap<Pair, Long> inReferenceMap)
 	{
 		root = inRoot;
 		referenceMap = inReferenceMap;
@@ -86,7 +84,7 @@ public class HCAPMessageDeliverer implements MessageDeliverer
 			System.out.println("Server is paused");
 			CoapExchange ex = new CoapExchange(exchange, (CoapResource) root);
 			
-			Map<String, Object> responseMap = new HashMap<String, Object>();
+			HashMap<String, Object> responseMap = new HashMap<String, Object>();
 			responseMap.put("messageCode", 2);
 			responseMap.put("messageText", "isPaused");
 			
@@ -105,7 +103,7 @@ public class HCAPMessageDeliverer implements MessageDeliverer
 			CoapExchange ex = new CoapExchange(exchange, (CoapResource) root);
 			
 			//Response response = new Response(ResponseCode.CONTENT);
-			Map<String, Object> responseMap = new HashMap<String, Object>();
+			HashMap<String, Object> responseMap = new HashMap<String, Object>();
 			responseMap.put("messageCode", 2);
 			responseMap.put("messageText", "isPaused");
 			
@@ -170,7 +168,7 @@ public class HCAPMessageDeliverer implements MessageDeliverer
 				
 				
 				//Response response = new Response(ResponseCode.CONTENT);
-				Map<String, Object> responseMap = new HashMap<String, Object>();
+				HashMap<String, Object> responseMap = new HashMap<String, Object>();
 				responseMap.put("messageCode", 3);
 				responseMap.put("messageText", "REQUEST CANCELLED");
 				
@@ -188,7 +186,7 @@ public class HCAPMessageDeliverer implements MessageDeliverer
 			//System.out.println("New Ticket: " + newTicket);
 			
 			//add the new ticket to ticket field in payload and continue.
-			Map<String, Object> payloadMap = auth.getPayloadMap();
+			HashMap<String, Object> payloadMap = auth.getPayloadMap();
 			byte[] newPayload = changeTicket(payloadMap, newTicket);
 			System.out.println("Payload Length: " + newPayload.length);
 			req.setPayload(newPayload);
@@ -276,7 +274,7 @@ public class HCAPMessageDeliverer implements MessageDeliverer
 	 * @param inNewTicket
 	 * @return new request payload as byte array
 	 */
-	private byte[] changeTicket(Map<String, Object> inPayloadMap,  Map<String, Object> inNewTicket)
+	private byte[] changeTicket(HashMap<String, Object> inPayloadMap,  HashMap<String, Object> inNewTicket)
 	{
 		inPayloadMap.put("ticket", inNewTicket);
 		
@@ -290,7 +288,7 @@ public class HCAPMessageDeliverer implements MessageDeliverer
 	 * @param inMap
 	 * @return encoded payload as a Byte Array
 	 */
-	private byte[] encodePayload(Map<String, Object> inMap)
+	private byte[] encodePayload(HashMap<String, Object> inMap)
 	{
 		byte[] returnValue = null;
 		if(HCAPResourceServer.isCBOR)
@@ -312,9 +310,9 @@ public class HCAPMessageDeliverer implements MessageDeliverer
 	 * @param inData
 	 * @return decoded payload as a Map.
 	 */
-	private Map<String, Object> decodePayload(byte[] inData)
+	private HashMap<String, Object> decodePayload(byte[] inData)
 	{
-		Map<String, Object> returnMap = null;
+		HashMap<String, Object> returnMap = null;
 		if(HCAPResourceServer.isCBOR)
 		{
 			cborConverter convert = new cborConverter();

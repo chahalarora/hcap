@@ -273,6 +273,15 @@ public class HCAPRequestHandler
 		init.initTransitions();
 		tempLis.add(init.getStatesObject());
 		tempLis.add(init.getStateTransObject());
+		
+		//-----------------
+		System.out.println("HCAPRequestHandler.generateFirstCapability:::");
+		java.util.Map<Integer,java.util.Set> conditions=init.getStateTransObject().getConditions();
+		for(Integer k:conditions.keySet()) {
+			System.out.println(k+":::"+conditions.get(k));
+		}
+		//-----------------
+		
 		HCAPAuthorizationServer.sessionMap.put(sessID, tempLis);
 		
 		//generate nameDefsMap for the first time capability is issued

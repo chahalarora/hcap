@@ -1,8 +1,22 @@
 package StateMachines;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.*;
+import java.security.NoSuchAlgorithmException;
+import java.security.Key;
+import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.spec.IvParameterSpec;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import java.util.Base64;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.HashSet;
 
 import SecureAuthServer.SecureAuthServer.SecurityAutomaton;
 import SecureAuthServer.SecureAuthServer.StateTransitions;
@@ -21,7 +35,7 @@ public class InitStateMachine implements SecurityAutomaton
 	}
 	
 	public void initStates()
-	{		
+	{
 		ArrayList<Integer> slis1 = new ArrayList<Integer>();
 		ArrayList<Integer> tlis1 = new ArrayList<Integer>();
 		
@@ -97,38 +111,64 @@ public class InitStateMachine implements SecurityAutomaton
 	
 	public void initTransitions()
 	{
+		/*
+		 * Shauvik Notes: Read from file to setup the conditions.
+		 * Then put them in the appropriate transitions.
+		 * Needs Editing. This will be done by the SIC--------------------------------- Shauvik-incomplete
+		 * */
+		List<String> conditions=new ArrayList<String>();;
+		try {
+		File file = new File("/D:/uCalgary/HCAPv1/HCAPCode/PropertiesFiles/ConditionList.txt"); 
+		  
+		  BufferedReader buffReader = new BufferedReader(new FileReader(file)); 
+		  
+		  String line = buffReader.readLine();
+		  while ((line = buffReader.readLine()) != null) { 
+		    conditions.add(line);
+		    }
+		}catch(Exception E) {
+			System.out.println("Issue in the conditions reading file-------- \n"+E);
+		}
+		for(int i = 0 ; i< conditions.size();i++) {
+			System.out.println("Conditions---- for "+i);
+			System.out.println(conditions.get(i));
+		}
+		
 		//trans1
 		HashMap<String, String> map1 = new HashMap<String, String>();
 		map1.put("St1", "St2");
 		tObj.addStTransitions(3, map1);
+		tObj.addConditionsToTransitions(3, conditions.get(0));
 		
 		//trans2
 		HashMap<String, String> map2 = new HashMap<String, String>();
 		map2.put("St2", "St3");
 		tObj.addStTransitions(6, map2);
+		tObj.addConditionsToTransitions(6, conditions.get(1));
 		
 		//trans3
 		HashMap<String, String> map3 = new HashMap<String, String>();
 		map3.put("St3", "St4");
 		tObj.addStTransitions(8, map3);
+		tObj.addConditionsToTransitions(8, conditions.get(2));
 		
 		//trans4
 		HashMap<String, String> map4 = new HashMap<String, String>();
 		map4.put("St4", "St5");
 		tObj.addStTransitions(10, map4);
+		tObj.addConditionsToTransitions(10, conditions.get(2));
 		
 		//trans - test
 		HashMap<String, String> maptest = new HashMap<String, String>();
 		maptest.put("St1", "St6");
 		tObj.addStTransitions(12, maptest);
+		tObj.addConditionsToTransitions(12, conditions.get(0));
 		
 		//trans - test2
 		HashMap<String, String> maptest1 = new HashMap<String, String>();
 		maptest1.put("St6", "St7");
 		tObj.addStTransitions(14, maptest1);
 		
-		//printTransitions(tObj);
-
 	}
 	
 	public States getStatesObject()

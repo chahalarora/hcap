@@ -5,8 +5,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -22,7 +20,7 @@ import ExceptionList.ExceptionList;
 public class HCAPHandleRequest {
 	
 	//private JSONObject jObj;
-	Map<String, Object> jObj;
+	HashMap<String, Object> jObj;
 	private String sharedKey = HCAPResourceServer.serverSharedKey;
 	private boolean catValue;
 	// DateFormat dateFormat;
@@ -33,7 +31,7 @@ public class HCAPHandleRequest {
 	
 	//this is the session mapping to exception List
 	//HashMap<Long, ExceptionList> exLisMap = new HashMap<Long, ExceptionList>();
-	Map<Long, ExceptionList> exLisMap = new HashMap<Long, ExceptionList>();
+	HashMap<Long, ExceptionList> exLisMap = new HashMap<Long, ExceptionList>();
 	
 	private int exArrIndex;
 	//private long tsValid = System.currentTimeMillis();	//Resource server last update time stamp
@@ -47,13 +45,13 @@ public class HCAPHandleRequest {
 	private long currTime = 0;
 	public String currentState;
 	
-	private Map<String, Object> retObj = null;
+	private HashMap<String, Object> retObj = null;
 	
-	private Map<Integer, Object> translis;
-	private List<Integer> stlis;
-	private Map<String, Object> namesArr;
-	private Map<String, Object> recievedNamesArr;
-	private List<String> stPerms;
+	private HashMap<Integer, Object> translis;
+	private ArrayList<Integer> stlis;
+	private HashMap<String, Object> namesArr;//defs
+	private HashMap<String, Object> recievedNamesArr;
+	private ArrayList<String> stPerms;
 	private String name = null;
 	
 	/**
@@ -64,13 +62,13 @@ public class HCAPHandleRequest {
 	 * @param inUserID
 	 * @param inPermID
 	 */
-	public HCAPHandleRequest(Map<String, Object> inObj, Map<Long, ExceptionList> inMap, String inUserID, long inPermID)
+	public HCAPHandleRequest(HashMap<String, Object> inObj, HashMap<Long, ExceptionList> inMap, String inUserID, long inPermID)
 	{
 		userID = inUserID;
 		stPerms = new ArrayList<String> ();
 
-		exLisMap = inMap;
-		jObj = inObj;
+		exLisMap = inMap; //mapping sessid to ex list
+		jObj = inObj; //capability
 		
 		//read components from capability
 		usePerm = inPermID;
@@ -85,7 +83,7 @@ public class HCAPHandleRequest {
 		namesArr = (HashMap<String, Object>) jObj.get("nameDefs");
 		recievedNamesArr = namesArr;
 		
-		List<Object> perms = (List<Object>) namesArr.get(name);
+		ArrayList<Object> perms = (ArrayList<Object>) namesArr.get(name);
 		
 		for(Object o : perms)
 		{
@@ -115,7 +113,7 @@ public class HCAPHandleRequest {
 	 * 
 	 * @return state update request as a Map
 	 */
-	public Map<String, Object> createUpdReq()
+	public HashMap<String, Object> createUpdReq()
 	{
 		if(catValue == true)
 		{
@@ -162,19 +160,15 @@ public class HCAPHandleRequest {
 		
 		while(exlis != null)
 		{
-			if(exlis.getPerm() != 0)
-			{
-				lisStack.add(exlis);
-			}
+			lisStack.add(exlis);
 			exlis = exlis.getEx();
 		}
 		
 		while(!lisStack.isEmpty())
 		{
-			List<Object> permTimeArr = new ArrayList<Object>();
+			ArrayList<Object> permTimeArr = new ArrayList<Object>();
 			ExceptionList templis = lisStack.pop();
-			//if(tsCreated > templis.getExTime())
-			if(HCAPResourceServer.lastGCTime > templis.getExTime())
+			if(tsCreated > templis.getExTime())
 			{
 				//don't add exception to the exObj
 			}
@@ -194,12 +188,12 @@ public class HCAPHandleRequest {
 	 * 
 	 * @return capability as a map.
 	 */
-	private Map<String, Object> createNewCapability()
+	private HashMap<String, Object> createNewCapability()
 	{
-		Map<String, Object> jObj = new HashMap<String, Object>();
+		HashMap<String, Object> jObj = new HashMap<String, Object>();
 		
-		Map<String, Object> transArrNew;
-		List<Object> stArrNew;
+		HashMap<String, Object> transArrNew;
+		ArrayList<Object> stArrNew;
 		
 		String name = (String) translis.get(Integer.toString((int)usePerm));
 		
@@ -209,7 +203,7 @@ public class HCAPHandleRequest {
 			HashMap<String, Object> obj = (HashMap<String, Object>) namesArr;
 			if(obj.containsKey(name))			
 			{
-				List<Object> permList = (ArrayList<Object>) obj.get(name);
+				ArrayList<Object> permList = (ArrayList<Object>) obj.get(name);
 				stArrNew = (ArrayList<Object>) permList.get(0);
 				transArrNew = (HashMap<String, Object>) permList.get(1);
 				
@@ -280,7 +274,7 @@ public class HCAPHandleRequest {
 	 * 
 	 * @return
 	 */
-	public Map<String, Object> computeResponse()
+	public HashMap<String, Object> computeResponse()
 	{
 		if(checkSessionInLock())
 		{
@@ -302,7 +296,6 @@ public class HCAPHandleRequest {
 			{
 				currTime = System.currentTimeMillis();
 				
-				addExceptionToList();
 				//check if namesArr has further propagation
 				if(!checkNamesArrProp())
 				{
@@ -317,7 +310,9 @@ public class HCAPHandleRequest {
 					//return retObj;
 				}
 				
+				addExceptionToList(retObj);
 				
+				//System.out.println("Its a transitioning request.");
 				
 				//add baton length to map
 				if(HCAPResourceServer.batonLengthMap.containsKey(sessID))
@@ -415,7 +410,7 @@ public class HCAPHandleRequest {
 			
 			//assign the compressed list to session ID and add the length of list to baton length map
 			HCAPResourceServer.lisMap.put(sessID, compressedList);
-			HCAPResourceServer.batonLengthMap.put(sessID, bComp.getBatonSize(originalBatonLength));
+			HCAPResourceServer.batonLengthMap.put(sessID, bComp.getBatonSize(HCAPResourceServer.lisMap.get(sessID)));
 			return true;
 		}
 		return false;
@@ -441,12 +436,12 @@ public class HCAPHandleRequest {
 	 * 
 	 * @return capability as a map.
 	 */
-	private Map<String, Object> getLostCapability()
+	private HashMap<String, Object> getLostCapability()
 	{
 		// check exception list, go upto the point where exTime < tCreated, 
 		// Once you reach that point start creating new capabilities till you reach the start of the exception list.
 		// return the latest capability to the client.
-		Map<String, Object> retObj = null;
+		HashMap<String, Object> retObj = null;
 		Stack<Integer> usedPermStack = new Stack<Integer>();
 		Stack<Long> exTimeStack = new Stack<Long>();
 		
@@ -603,19 +598,19 @@ public class HCAPHandleRequest {
 	 * This method is used to add a permission to the exception list of resource server.
 	 * 
 	 */
-	public void addExceptionToList()
+	public void addExceptionToList(HashMap<String, Object> inObj)
 	{
-		//String addName = null;
-		/*
-		if(retObj.get("name") != null)
+		String addName = null;
+		if(retObj.get("name") != null) //retObj is the capability
 		{
 			addName = retObj.get("name").toString();
 		}
-		*/
-		
+		//call print before new exception
 		ExceptionList ex = exLisMap.get(sessID);
-		ExceptionList newEx = new ExceptionList(name, usePerm, currTime, ex);
+		//ExceptionList newEx = new ExceptionList(addName, usePerm, currTime, ex); //Lakshs Part which works
+		ExceptionList newEx = new ExceptionList(usePerm, currTime, ex , translis, namesArr);
 		exLisMap.put(sessID, newEx);
+		//call print after
 	}
 	
 	/**
@@ -639,16 +634,16 @@ public class HCAPHandleRequest {
 	}
 	
 
-	public String getStringUpd(Map<String, Object> retObj2)
+	public String getStringUpd(HashMap<String, Object> inObj)
 	{
 		StringBuilder retStr = new StringBuilder();
 
 		retStr.append("sessID");
-		retStr.append(retObj2.get("sessID").toString());
+		retStr.append(inObj.get("sessID").toString());
 		retStr.append("exceptions");
-		retStr.append(retObj2.get("exceptions").toString());
+		retStr.append(inObj.get("exceptions").toString());
 		retStr.append("certType");
-		retStr.append(retObj2.get("certType").toString());
+		retStr.append(inObj.get("certType").toString());
 		
 		//System.out.println(retStr.toString());
 		

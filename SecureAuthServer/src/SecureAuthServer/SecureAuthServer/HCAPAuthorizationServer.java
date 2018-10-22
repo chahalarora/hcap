@@ -118,26 +118,27 @@ public class HCAPAuthorizationServer
 
 		try 
 		{
-			// Pre-shared secrets
+			// Pre-shared secrets -----------------------------------------------------------------------------------------------------
 			InMemoryPskStore pskStore = new InMemoryPskStore();
 			pskStore.setKey("password", "sesame".getBytes());
 			
-			// load the trust store
+			// load the trust store -----------------------------------------------------------------------------------------------------
 			KeyStore trustStore = KeyStore.getInstance("JKS");
 			InputStream inTrust = new FileInputStream(trustStoreLocation);
 			trustStore.load(inTrust, trustStorePassword.toCharArray());
 			inTrust.close();
-			// load the key store
+			
+			// load the key store -----------------------------------------------------------------------------------------------------
 			KeyStore keyStore = KeyStore.getInstance("JKS");
 			InputStream in = new FileInputStream(keyStoreLocation);
 			keyStore.load(in, keyStorePassword.toCharArray());
 			in.close();
 					
-			//You can load multiple certificates if needed
+			//You can load multiple certificates if needed --------------------------------------------------------------------------------------
 			Certificate[] trustedCertificates = new Certificate[1];
 			trustedCertificates[0] = trustStore.getCertificate("root");
 					
-
+			//Configure DTLS here ------------------------------------------------------------------------------------------------
 			DtlsConnectorConfig.Builder config = new DtlsConnectorConfig.Builder(new InetSocketAddress(port));
 			config.setSupportedCipherSuites(new CipherSuite[]{CipherSuite.TLS_PSK_WITH_AES_128_CCM_8, CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8});
 			config.setPskStore(pskStore);
@@ -146,8 +147,7 @@ public class HCAPAuthorizationServer
 			config.setClientAuthenticationRequired(true);
 					
 			connector = new DTLSConnector(config.build());					
-			//InetSocketAddress adr = connector.getAddress();
-					
+			//InetSocketAddress adr = connector.getAddress();					
 			//server.add(getIssueNewResource, getIssueLostResource, getUpdateResource, getFlushResource, getParentResource, getResetResource);
 			//server.add(getIssueNewResource, getIssueLostResource, getUpdateResource, getFlushResource);
 			server.add(getParentResource);
@@ -191,6 +191,8 @@ public class HCAPAuthorizationServer
 		lis.add(fragmentLength);
 		
 		SAMap.put(clientID, lis);
+		
+		//System.out.println("HCAPAuthorizationServer.addClientStateMachine Print \n"+automaton.getStateTransObject().getConditions());
 	}
 	
 	/**

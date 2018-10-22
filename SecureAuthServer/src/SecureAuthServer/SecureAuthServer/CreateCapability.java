@@ -3,8 +3,6 @@ package SecureAuthServer.SecureAuthServer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -224,264 +222,20 @@ public class CreateCapability {
 					transArr = (HashMap<Integer, Object>) o;
 				}
 			}
-		}
-	}
-	
-	
-	private void createPartial(HashMap<Long, ArrayList<Object>> inMap, String inState, int inCapProp)
-	{
-		ArrayList<Object> tempLis = inMap.get(tempSessID);
-		
-		//get states
-		sObj = (States) getDFA(tempLis).get("oStates");
-		//get state transitions
-		tObj = (StateTransitions) getDFA(tempLis).get("oTransitions");
-		
-		//get states - {permission} map
-		checkstPerm = sObj.getStPermMap();
-		checktransPerm = sObj.getTransPermMap();
-						
-		//get permissions - currentState - nextState MAP
-		checkTrans = tObj.getMap();
-		
-		String initialName = recurse(inState, inCapProp);
-		
-	}
-	
-	private String recurse(String inState, int inCapProp)
-	{
-		List<Object> recurseStArr = new ArrayList<Object>();
-		Map<Integer, Object> recurseTransArr = new HashMap<Integer, Object>();
-		
-		if(inCapProp < 0)
-		{
-			return null;
-		}
-		
-		String returnName;
-		
-		if(stateNameDefMap.containsKey(inState))
-		{
-			returnName = stateNameDefMap.get(inState);
-			//transArr.put(aPerm, getName);
-		}
-		else
-		{
-			//add mapping of state to namedef
-			String name = "n" + nameCount;
-			returnName = name;
-			stateNameDefMap.put(inState, name);
-			//transArr.put(aPerm, name);
-			nameCount++;
-		}
-		
-		
-		for(int s : checkstPerm.get(inState))
-		{
-			recurseStArr.add(s);
-		}
-		
-		for(int aPerm : checktransPerm.get(inState))
-		{
-			HashMap<String, String> currToPrev = checkTrans.get(aPerm);
-			String newState = currToPrev.get(inState);
 			
-			//stateQueue.add(newState);
-			
-			String getName = recurse(newState, inCapProp - 1);
-			
-			recurseTransArr.put(aPerm, getName);
-		}
-		
-		stateNameDefMap.put(inState, returnName);
-		ArrayList<Object> initPerms = new ArrayList<Object>();
-		initPerms.add(recurseStArr);
-		initPerms.add(recurseTransArr);
-		nameDefToFrag.put(returnName, initPerms);
-		
-		return returnName;
-	}
-	
-	
-	
-	/**
-	 * This method is used to create capability permissions when the capability
-	 * is supposed to contain partial State machine within itself.
-	 * 
-	 * @param inMap
-	 * @param inState
-	 */
-	public void createPermArrayPartialDFA(HashMap<Long, ArrayList<Object>> inMap, String inState, int inCapProp)
-	{
-		ArrayList<Object> tempLis = inMap.get(tempSessID);
-		
-		//get states
-		sObj = (States) getDFA(tempLis).get("oStates");
-		//get state transitions
-		tObj = (StateTransitions) getDFA(tempLis).get("oTransitions");
-		
-		
-		//get states - {permission} map
-		checkstPerm = sObj.getStPermMap();
-		checktransPerm = sObj.getTransPermMap();
-				
-		//get permissions - currentState - nextState MAP
-		checkTrans = tObj.getMap();
-		
-		stateQueue.add(inState);
-		
-		for(int s : checkstPerm.get(inState))
-		{
-			stArr.add(s);
-		}
-		
-		for(int aPerm : checktransPerm.get(inState))
-		{
-			HashMap<String, String> currToPrev = checkTrans.get(aPerm);
-			String newState = currToPrev.get(inState);
-			
-			stateQueue.add(newState);
-			
-			if(stateNameDefMap.containsKey(newState))
-			{
-				String getName = stateNameDefMap.get(newState);
-				transArr.put(aPerm, getName);
-			}
-			else
-			{
-				//add mapping of state to namedef
-				String name = "n" + nameCount;
-				stateNameDefMap.put(newState, name);
-				transArr.put(aPerm, name);
-				nameCount++;
-			}
-		}
-		
-		String initNameDef = "n0";
-		stateNameDefMap.put(inState, initNameDef);
-		ArrayList<Object> initPerms = new ArrayList<Object>();
-		initPerms.add(stArr);
-		initPerms.add(transArr);
-		nameDefToFrag.put(initNameDef, initPerms);
-		
-		int tempCapProp = capProp;
-		while(!stateQueue.isEmpty())
-		{
-			String getState = stateQueue.poll();
-			constructNameDefsForPartialDFA(inMap, getState);
-		}
-	}
-
-	
-	/**
-	 * This method is used to generate name definitions to be put inside the
-	 * capability when capability contains partial DFA.
-	 * 
-	 * @param inMap
-	 * @param inState
-	 */
-	public void constructNameDefsForPartialDFA(HashMap<Long, ArrayList<Object>> inMap, String inState)
-	{
-		
-		
-		ArrayList tempLis = inMap.get(tempSessID);
-		
-		//get states
-		States sObjTemp = (States) getDFA(tempLis).get("oStates");
-		//get state transitions
-		StateTransitions tObjTemp = (StateTransitions) getDFA(tempLis).get("oTransitions");
-		
-		//get states - {permission} map
-		HashMap<String, ArrayList<Integer>> checkstPermTemp = sObjTemp.getStPermMap();
-		HashMap<String, ArrayList<Integer>> checktransPermTemp = sObjTemp.getTransPermMap();
-		
-		// get permissions - currentState - nextState MAP
-		HashMap<Integer, HashMap<String, String>> checkTransTemp = tObjTemp.getMap();
-		
-		
-		ArrayList<Object> stArrTemp = new ArrayList<Object>();
-		for(Integer s : checkstPermTemp.get(inState))
-		{
-			stArrTemp.add(s);
-		}
-		
-		ArrayList<Object> defsLis = new ArrayList<Object> ();
-		defsLis.add(stArrTemp);
-		
-		HashMap<Integer, Object> transArrTemp = new HashMap<Integer, Object>();
-		
-		for(Integer aPerm : checktransPerm.get(inState))
-		{
-			HashMap<String, String> currToPrev = checkTrans.get(aPerm);
-			String newState = currToPrev.get(inState);
-			
-			String putName = null;
-			
-			if(capProp > 0)
-			{
-				if(stateNameDefMap.containsKey(newState))
-				{
-					putName = stateNameDefMap.get(newState);
-				}
-				else
-				{
-					putName = "n" + nameCount;
-					stateNameDefMap.put(newState, putName);	
-					nameCount++;
-				}	
-			}
-			
-			
-			
-			if(capProp >= 1)
-			{
-				if(!stateQueue.contains(newState))
-				{
-					if(!nameDefToFrag.containsKey(putName))
-					{
-						stateQueue.add(newState);
-					}
-				}
-			}
-			
-			
-			
-			if(capProp == 0)
-			{
-				transArrTemp.put(aPerm, null);	
-			}
-			else
-			{
-				transArrTemp.put(aPerm, putName);	
-			}
-			//inState = currToPrev.get(inState);
-			//nodeValencyCounter++;
-		}
-		
-		defsLis.add(transArrTemp);
-		String getCurentName = stateNameDefMap.get(inState);
-		nameDefToFrag.put(getCurentName, defsLis);
-		
-		if(capProp < 1)
-		{
-			capProp = 0;
-		}
-		else
-		{
-			capProp--;	
 		}
 	}
 	
 	/**
 	 * This method is used to create capability permissions when the capability
-	 * is supposed to contain the full State machine within itself.
+	 * is supposed to contain the the full State machine within itself.
 	 * 
 	 * @param inMap
 	 * @param inState
 	 */
 	public void createPermArrayFullDFA(HashMap<Long, ArrayList<Object>> inMap, String inState)
 	{
-		//this is the first state
+		// this is the first state
 		ArrayList<Object> tempLis = inMap.get(tempSessID);
 		
 		//get states
@@ -493,7 +247,7 @@ public class CreateCapability {
 		checkstPerm = sObj.getStPermMap();
 		checktransPerm = sObj.getTransPermMap();
 		
-		// get permissions - currentState - nextState MAP
+		// get permissions - currentState - nextState MAP - gives Map<Int , HashMap<String, String>> permission(int) saying state(string) to state(string)
 		checkTrans = tObj.getMap();
 					
 		stateQueue.add(inState);
@@ -541,7 +295,7 @@ public class CreateCapability {
 	
 	/**
 	 * This method is used to generate name definitions to be put inside the
-	 * capability when capability contains full DFA.
+	 * capability.
 	 * 
 	 * @param inMap
 	 * @param inState
@@ -592,14 +346,16 @@ public class CreateCapability {
 				nameCount++;
 			}
 			
-				if(!stateQueue.contains(newState))
+			
+			if(!stateQueue.contains(newState))
+			{
+				if(!nameDefToFrag.containsKey(putName))
 				{
-					if(!nameDefToFrag.containsKey(putName))
-					{
-						stateQueue.add(newState);
-					}
-				}	
-				
+					stateQueue.add(newState);
+				}
+			}
+			
+			
 			transArrTemp.put(aPerm, putName);
 			//inState = currToPrev.get(inState);
 		}
@@ -659,8 +415,7 @@ public class CreateCapability {
 			else
 			{
 				//partial fragment of DFA needed
-				//createPermArrayPartialDFA(inMap, currState, capProp);
-				createPartial(inMap, currState, capProp);
+				
 			}
 			
 			obj.put("vID", vID);

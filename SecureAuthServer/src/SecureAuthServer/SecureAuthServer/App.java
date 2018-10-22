@@ -1,5 +1,12 @@
 package SecureAuthServer.SecureAuthServer;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/*
+ * Shauvik Working on this- 2014 - 10 -14
+ * 
+ * */
 import StateMachines.InitStateMachine;
 
 public class App {
@@ -10,8 +17,7 @@ public class App {
 	
 	public static void main(String[] args )
     {
-        String propFileLocation  = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\AuthServer.properties";
-        
+        String propFileLocation  ="/D:/uCalgary/HCAPv1/HCAPCode/PropertiesFiles/AuthServer.properties";
         //read experiment number and machine number
         //new App_Ex().readFile(propFileLocation);
         
@@ -24,11 +30,13 @@ public class App {
     	//String rs2 = "127.0.0.1:8081";
     	//Test Machine
         
+    	InitStateMachine voidStateMachine = new InitStateMachine();
     	
-    	server.addClientStateMachine("C=CA,L=Ottawa,O=Eclipse IoT,OU=Californium,CN=cf-client", new InitStateMachine(), 0);
+    	server.addClientStateMachine("C=CA,L=Ottawa,O=Eclipse IoT,OU=Californium,CN=cf-client", voidStateMachine , -1);
         server.addResourceServer("127.0.0.1:8080", "myKey");
         server.addToStateRSMap("St1", "127.0.0.1:8080");
         
+       
         serverObj = server.startHCAPServer();
         
         //testCaseCodeNoSession();

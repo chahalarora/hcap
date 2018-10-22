@@ -1,7 +1,6 @@
 package SecureResServer.SecureResServer;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import ExceptionList.ExceptionList;
 
@@ -22,10 +21,10 @@ public class TestConversions
 		byte[] data = cCon.convertToCBOR(exList);
 		
 		
-		Map<String, Object> retMap = cCon.convertFromCBOR(data);
-		Map<String, Object> test = (HashMap<String, Object>) retMap.get("exceptionList");
+		HashMap<String, Object> retMap = cCon.convertFromCBOR(data);
+		HashMap<String, Object> test = (HashMap<String, Object>) retMap.get("exceptionList");
 		
-		Map<String, Object> ExList = (HashMap<String, Object>) test.get("ex");
+		HashMap<String, Object> ExList = (HashMap<String, Object>) test.get("ex");
 		
 		//HashMap<String, Object> retMapNew = cCon.convertFromCBORExList(data);
 		

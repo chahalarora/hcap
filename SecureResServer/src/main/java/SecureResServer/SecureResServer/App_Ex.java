@@ -223,7 +223,7 @@ public class App_Ex
 	
     public static void main(String[] args)
     {
-    	String propFileLocation = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\ResServer.properties";
+String propFileLocation = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\ResServer.properties";
     	
     	int machNumber = 0;
     	int exNumber = 0;
@@ -272,7 +272,7 @@ public class App_Ex
     		System.out.println("Demo resources initiated for resource server.");
     		//Construct resources for test machine
     		ConstructResourcesTestMachine resTest = new ConstructResourcesTestMachine();
-        	resT =  resTest.construct(20);
+        	resT =  resTest.construct();
         	inPermMap = new App_Ex().createMap(12);
     	}
     	else if(exNumber == 1)
@@ -296,7 +296,7 @@ public class App_Ex
     		//just define some demo resources in order for resource server to not produce any errors
     		//Construct resources for test machine
     		ConstructResourcesTestMachine resTest = new ConstructResourcesTestMachine();
-        	resT =  resTest.construct(20);
+        	resT =  resTest.construct();
     	}
     	else if(exNumber == 4)
     	{

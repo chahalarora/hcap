@@ -7,11 +7,11 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 
 public class ConstructResourcesTestMachine 
 {
-	public CoapResource[] construct(int numResources)
+	public CoapResource[] construct()
 		{
-			CoapResource[] res = new CoapResource[numResources];
+			CoapResource[] res = new CoapResource[20];
 			
-			for(int i = 0; i < numResources; i++)
+			for(int i = 0; i < 20; i++)
 			{
 				CoapResource inDemoResource  = new CoapResource("demoResource" + (i+1))
 				{
@@ -19,7 +19,7 @@ public class ConstructResourcesTestMachine
 					public void handleGET(CoapExchange exchange)
 					{
 						System.out.println("Got something in GET.");
-						exchange.respond(ResponseCode.CONTENT, "This is authorization server, currently it doesn't support GET.");
+						exchange.respond(ResponseCode.CONTENT, "This is resource server, currently it doesn't support GET.");
 					}
 					
 					@Override

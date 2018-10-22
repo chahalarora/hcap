@@ -3,7 +3,6 @@ package SecureResServer.SecureResServer;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
@@ -28,9 +27,9 @@ public class HCAPAuthorize
 	private String userID;
 	private long permissionID;
 	private String sharedKey = HCAPResourceServer.serverSharedKey;
-	private Map<String, Object> returnMap;
+	private HashMap<String, Object> returnMap;
 	
-	private Map<String, Object> payloadMap;
+	private HashMap<String, Object> payloadMap;
 	
 	/**
 	 * HCAPAuthorize constructor. 
@@ -75,7 +74,7 @@ public class HCAPAuthorize
 	{
 		//System.out.println("Evaluate Request: " + System.currentTimeMillis());
 		@SuppressWarnings("unchecked")
-		Map<String, Object> ticketMap = (HashMap<String, Object>) payloadMap.get("ticket");
+		HashMap<String, Object> ticketMap = (HashMap<String, Object>) payloadMap.get("ticket");
 		
 		//System.out.println("capability received at client " + ticketMap.toString());
 		
@@ -110,7 +109,7 @@ public class HCAPAuthorize
 			{
 				//ask the other resource server(vid) to verify the capability -- send a validation request to the other resource server
 				long sessionID = Long.parseLong(ticketMap.get("sessID").toString());
-				Map<String, Object> requestMap = new HashMap<String, Object>();
+				HashMap<String, Object> requestMap = new HashMap<String, Object>();
 				requestMap.put("userID", userID);
 				requestMap.put("ticket", ticketMap);
 				
@@ -150,7 +149,7 @@ public class HCAPAuthorize
 				CoapResponse response = cl.advanced(request);
 				byte[] responsePayload = response.getPayload();
 				
-				Map<String, Object> responseMap;
+				HashMap<String, Object> responseMap;
 				if(HCAPResourceServer.isCBOR)
 				{
 					cborConverter cCon = new cborConverter();
@@ -266,9 +265,9 @@ public class HCAPAuthorize
 	 * @param inBaton
 	 * @return
 	 */
-	private ExceptionList convertBatonToExList(Map<String, Object> inBaton)
+	private ExceptionList convertBatonToExList(HashMap<String, Object> inBaton)
 	{
-		Map<String, Object> getExList = (HashMap<String, Object>) inBaton.get("ex");
+		HashMap<String, Object> getExList = (HashMap<String, Object>) inBaton.get("ex");
 		ExceptionList tempList = null;
 		
 		if(getExList != null)
@@ -296,7 +295,7 @@ public class HCAPAuthorize
 	 * 
 	 * @return
 	 */
-	public Map<String, Object> getPayloadMap()
+	public HashMap<String, Object> getPayloadMap()
 	{
 		if(payloadMap != null)
 		{
@@ -310,7 +309,7 @@ public class HCAPAuthorize
 	 * 
 	 * @return
 	 */
-	public Map<String, Object> getNewTicket()
+	public HashMap<String, Object> getNewTicket()
 	{
 		if(returnMap != null)
 		{

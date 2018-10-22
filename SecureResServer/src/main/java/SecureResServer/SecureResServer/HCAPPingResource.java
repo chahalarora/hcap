@@ -2,7 +2,6 @@ package SecureResServer.SecureResServer;
 
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP.ResponseCode;
@@ -20,7 +19,7 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 public class HCAPPingResource 
 {
 	private CoapResource ping;
-	private static Map<String, Object> payloadMap = new HashMap<String, Object>();
+	private static HashMap<String, Object> payloadMap = new HashMap<String, Object>();
 	private static byte[] payloadData;
 	
 	

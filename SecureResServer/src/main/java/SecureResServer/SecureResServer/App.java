@@ -12,20 +12,24 @@ public class App {
 	
 	public static void main(String[] args)
     {
-		String propFileLocation = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\ResServer.properties";
+		String propFileLocation = "/D:/uCalgary/HCAPv1/HCAPCode/PropertiesFiles/ResServer.properties";
     	
     	CoapResource[] resT = null;
     	HashMap<Pair, Long> inPermMap = null;
-    	//to be taken as user input
-    	inPermMap = new App().createMap(12);
-    	server = new HCAPResourceServer(propFileLocation, inPermMap);
     	
     	System.out.println("Demo resources initiated for resource server.");
     	//Construct resources for test machine
     	ConstructResourcesTestMachine resTest = new ConstructResourcesTestMachine();
-    	resT =  resTest.construct(20);
-    	server.addResourcesToServer(resT);
+    	resT =  resTest.construct(); //creates 20 CoapResource and puts them in an array which is in resT.res(CoapResource Array)
     	
+    	
+    	//to be taken as user input
+    	inPermMap = new App_Ex().createMap(12);//just a map, mapping a pair("POST" , "demoResource"+i) to a long i --makes no sense
+    	
+    	
+    	server = new HCAPResourceServer(propFileLocation, inPermMap); 
+    	
+    	server.addResourcesToServer(resT);
     	
     	CoapResource parentRes = CoapHcapParentResource.createResource();
     	server.addResourcesToServer(parentRes);
@@ -50,19 +54,5 @@ public class App {
 		in.close();
 		*/
     }
-	
-	public HashMap<Pair, Long> createMap(int machineNumber)
-	{
-		HashMap<Pair, Long> inPermMap = new HashMap<Pair, Long>();
-		for(int i = 1; i <= machineNumber; i++)
-		{
-			String res = "demoResource";
-			
-			Pair p = new Pair("POST", res+i);
-			
-			inPermMap.put(p, (long) i);
-		}
-		return inPermMap;
-	}
 
 }

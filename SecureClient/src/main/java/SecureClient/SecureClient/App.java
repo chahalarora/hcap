@@ -1,7 +1,6 @@
 package SecureClient.SecureClient;
 
 import java.util.HashMap;
-import java.util.Stack;
 /**
  * Hello world!
  *
@@ -15,16 +14,13 @@ public class App
     
     public void demoClient()
     {
-    	//to be taken from command line
-    	String propFileLocation = "C:\\Users\\lakshya.tandon\\Documents\\GitHub\\hcap\\PropertiesFiles\\Client.properties";
-    	
-    	
+    	String propFileLocation = "/D:/uCalgary/HCAPv1/HCAPCode/PropertiesFiles/Client.properties";
         ClientBuilder client = new ClientBuilder(propFileLocation);
         
         HashMap<String, Object> capability = null;
         HashMap<String, Object> oldCapability = null;
         
-        
+        // get first capability from the authorization server
         if(client.getCapability())
         {
         	capability = client.getTicket();
@@ -43,15 +39,13 @@ public class App
         }
         */
         
-        
+        // access requests
         if(client.requestAccess(capability, null, "demoResource3"))
         {
         	capability = client.getTicket();
         	
         	System.out.println(capability.toString());
         }
-        
-       
         
         //get a new capability after state update request is issued
         /*
@@ -71,9 +65,6 @@ public class App
         	
         	System.out.println(capability.toString());
         }
-        
-      
-       
         
         if(client.requestAccess(capability, null, "demoResource8"))
         {
